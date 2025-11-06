@@ -1,4 +1,4 @@
-package com.cormo.neulbeot.api.signup
+package com.cormo.neulbeot.page.signup_pages.api
 
 import android.content.Context
 import android.util.Log

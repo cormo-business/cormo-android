@@ -1,4 +1,4 @@
-package com.cormo.neulbeot.api.signup
+package com.cormo.neulbeot.page.signup_pages.api
 
 import retrofit2.Response
 import retrofit2.http.Body

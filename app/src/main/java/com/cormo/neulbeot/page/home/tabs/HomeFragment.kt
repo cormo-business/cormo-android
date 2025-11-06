@@ -14,14 +14,25 @@ import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.attendance.AttendanceCheckActivity
 import com.cormo.neulbeot.page.exercise.WithFriendsActivity
 import com.cormo.neulbeot.page.exercise.WeekChallengeActivity
-import com.cormo.neulbeot.store.UserStore
+import com.cormo.neulbeot.page.home.vm.HomeModel
+import kotlin.getValue
+import androidx.fragment.app.activityViewModels
+import java.time.LocalDate
+import java.util.Calendar
 
 class HomeFragment : Fragment() {
+    private val vm: HomeModel by activityViewModels()
 
+    // View를 만드는 단계
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.home_fragment_home, container, false)
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.home_fragment_home, container, false)
+    }
 
+    // View가 완성된 뒤 호출되는 단계
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
@@ -33,16 +44,40 @@ class HomeFragment : Fragment() {
         val btnToday = v.findViewById<Button>(R.id.btnTodayWorkout)
         val btnFriends = v.findViewById<Button>(R.id.btnWithFriends)
         val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
+        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
 
-        val user = UserStore.user
-        tvTitle.text = "${user.nickname}님,\n에너지 코인을 모아보세요"
-        tvLevel.text = "Lv.${user.level}  다음 승급까지"
-        tvCoin.text = user.coin.toString()
-        progress.progress = 55 // 예시 55%
+        vm.loadIfNeeded()
 
-        user.profilePath?.let { p ->
-            runCatching {
-                ivProfile.setImageURI(Uri.parse(p))
+        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
+            val cal = Calendar.getInstance()
+            val currentMonth = cal.get(Calendar.MONTH) + 1 // 0부터 시작하므로 +1
+
+            tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
+
+        }
+
+        vm.nickname.observe(viewLifecycleOwner) { name ->
+            tvTitle.text = "${name}님,\n에너지 코인을 모아보세요"
+        }
+
+        fun render() {
+            val level = vm.level.value ?: 0
+            val p = vm.levelProgress.value ?: 0
+            tvLevel.text = "Lv.$level  다음 승급까지 $p"
+            var total = 100+50*(level-1)
+            progress.progress = (total - p) * 100 / total
+        }
+        vm.level.observe(viewLifecycleOwner) { render() }
+        vm.levelProgress.observe(viewLifecycleOwner) { render() }
+
+        vm.point.observe(viewLifecycleOwner) { pt ->
+            tvCoin.text = pt.toString()
+        }
+        vm.profilePath.observe(viewLifecycleOwner) { path ->
+            if (!path.isNullOrBlank()) {
+                runCatching { ivProfile.setImageURI(Uri.parse(path)) }
+            } else {
+                ivProfile.setImageResource(R.drawable.ic_account_circle_96)
             }
         }
 

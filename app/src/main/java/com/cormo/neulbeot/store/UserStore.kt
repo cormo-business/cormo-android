@@ -1,6 +1,6 @@
 package com.cormo.neulbeot.store
 
-import com.cormo.neulbeot.model.UserModel
+import com.cormo.neulbeot.data.model.UserModel
 
 object UserStore {
     // 회원가입 끝나고 닉네임/프로필 경로를 여기에 채워 넣어 사용

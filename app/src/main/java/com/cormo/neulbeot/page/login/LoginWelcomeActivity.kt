@@ -16,13 +16,13 @@ class LoginWelcomeActivity : AppCompatActivity() {
         Log.d("LoginWelcome", "onCreate()")
         setContentView(R.layout.login_activity_login_welcome)
 
-        val nickname = intent.getStringExtra("nickname") ?: "사용자"
+        val accessToken = intent.getStringExtra("accessToken") ?: "사용자"
         val ivProfile: ImageView = findViewById(R.id.ivProfile)
         val tvWelcome: TextView = findViewById(R.id.tvWelcome)
         val btnStart: Button = findViewById(R.id.btnStart)
 
         ivProfile.setImageResource(R.drawable.ic_account_circle_96)
-        tvWelcome.text = "다시 돌아와주셨군요,\n${nickname}님!"
+        tvWelcome.text = "다시 돌아와주셨군요,\n${accessToken}님!"
 
         btnStart.setOnClickListener {
             startActivity(

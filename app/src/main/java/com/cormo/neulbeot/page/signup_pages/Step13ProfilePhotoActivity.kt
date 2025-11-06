@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
-import com.cormo.neulbeot.api.signup.SignupApi
+import com.cormo.neulbeot.api.signup.SignupService
 import com.cormo.neulbeot.page.home.HomeActivity
 
 class Step13ProfilePhotoActivity : AppCompatActivity() {
@@ -117,7 +117,7 @@ class Step13ProfilePhotoActivity : AppCompatActivity() {
 
         // Flutter의 SignupApi.register와 동일 필드로 전송
         // (여기서는 이미지 업로드 없음, 서버에도 안보냄)
-        SignupApi.register(
+        SignupService.register(
             context = this,
             username = SignupFormStore.username.orEmpty(),
             password = SignupFormStore.password.orEmpty(),

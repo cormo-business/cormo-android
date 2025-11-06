@@ -1,4 +1,4 @@
-package com.cormo.neulbeot.model
+package com.cormo.neulbeot.data.model
 
 data class UserModel(
     val nickname: String = "",

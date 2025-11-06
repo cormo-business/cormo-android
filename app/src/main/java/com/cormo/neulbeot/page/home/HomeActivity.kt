@@ -1,20 +1,17 @@
 package com.cormo.neulbeot.page.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.home.tabs.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.core.widget.HomeBottomBarView
-
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
 
@@ -62,34 +59,30 @@ class HomeActivity : AppCompatActivity() {
             // finish()
         }
 
-        // ▼ 페이지 스와이프로 바뀌면 하단바 상태도 동기화
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                // 포지션 매핑: 0=홈, 1=챌린지, 2=리포트(중앙은 2가 아님), 3=마켓, 4=프로필
-                val index = when (position) {
-                    0 -> 0
-                    1 -> 1
-                    3 -> 3
-                    4 -> 4
-                    else -> bottomBar.currentIndex  // 리포트(2)는 하단 탭과 직접 매핑 없음 (필요하면 추가)
-                }
-                bottomBar.currentIndex = index
-            }
-        })
-
         // 초기 탭
         bottomBar.currentIndex = 0
         pager.setCurrentItem(0, false)
-//        bottom.setOnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.tab_home -> pager.setCurrentItem(0, false)
-//                R.id.tab_challenge -> pager.setCurrentItem(1, false)
-//                R.id.tab_report -> pager.setCurrentItem(2, false)
-//                R.id.tab_market -> pager.setCurrentItem(3, false)
-//                R.id.tab_profile -> pager.setCurrentItem(4, false)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+        }
+
+
+        // ▼ 페이지 스와이프로 바뀌면 하단바 상태도 동기화
+        // pager.isUserInputEnabled = true 바꿔야함
+//        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                // 포지션 매핑: 0=홈, 1=챌린지, 2=리포트(중앙은 2가 아님), 3=마켓, 4=프로필
+//                val index = when (position) {
+//                    0 -> 0
+//                    1 -> 1
+//                    3 -> 3
+//                    4 -> 4
+//                    else -> bottomBar.currentIndex  // 리포트(2)는 하단 탭과 직접 매핑 없음 (필요하면 추가)
+//                }
+//                bottomBar.currentIndex = index
 //            }
-//            true
-//        }
-//        bottom.selectedItemId = R.id.tab_home
+//        })
+
     }
 }

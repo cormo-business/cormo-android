@@ -19,6 +19,9 @@ class LoginPasswordViewModel(app: Application) : AndroidViewModel(app) {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
+    private val _nickname = MutableLiveData<String>()
+    val nickname: LiveData<String> = _nickname
+
     fun login(username: String, password: String) {
         if (username.isBlank() || password.isBlank()) {
             _error.value = "전화번호 또는 비밀번호가 비어 있습니다."
@@ -38,8 +41,15 @@ class LoginPasswordViewModel(app: Application) : AndroidViewModel(app) {
                     if (access.isEmpty()) {
                         _error.postValue("로그인 실패: accessToken 누락")
                     } else {
-                        TokenStorage(getApplication()).saveTokens(access, refresh)
-                        _loginSuccess.postValue(true)
+                        val body = res.body()
+                        if(body != null){
+                            TokenStorage(getApplication()).saveTokens(access, refresh)
+                            TokenStorage(getApplication()).saveNickname(body.nickname)
+
+                            _nickname.postValue(body.nickname)
+                            _loginSuccess.postValue(true)
+                        }
+
                     }
                 } else {
                     _error.postValue("로그인 실패: ${res.code()}")

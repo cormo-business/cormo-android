@@ -28,4 +28,15 @@ class TokenStorage(private val context: Context) {
             remove("refreshToken")
         }
     }
+
+    fun saveNickname(nickname: String) {
+        prefs.edit { putString("nickname", nickname) }
+    }
+
+    fun getNickname(): String? = prefs.getString("nickname", null)
+
+    fun clearNickname() {
+        prefs.edit { remove("nickname") }
+    }
+
 }

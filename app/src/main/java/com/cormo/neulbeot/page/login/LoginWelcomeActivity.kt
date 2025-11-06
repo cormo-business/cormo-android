@@ -16,7 +16,7 @@ class LoginWelcomeActivity : AppCompatActivity() {
         Log.d("LoginWelcome", "onCreate()")
         setContentView(R.layout.login_activity_login_welcome)
 
-        val accessToken = intent.getStringExtra("accessToken") ?: "사용자"
+        val accessToken = intent.getStringExtra("nickname") ?: "사용자"
         val ivProfile: ImageView = findViewById(R.id.ivProfile)
         val tvWelcome: TextView = findViewById(R.id.tvWelcome)
         val btnStart: Button = findViewById(R.id.btnStart)

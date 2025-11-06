@@ -58,16 +58,15 @@ class LoginPasswordActivity : AppCompatActivity() {
             if (success == true) {
                 toast("로그인 성공!")
 
-                // ✅ suspend 함수는 코루틴 안에서 호출해야 함
-                // todo: 지금은 accessToken 확인위해 이렇게함, 로그인 시 닉네임 전송해야할듯
+                // suspend 함수는 코루틴 안에서 호출해야 함
                 CoroutineScope(Dispatchers.Main).launch {
-                    val accessToken = withContext(Dispatchers.IO) {
-                        TokenStorage(this@LoginPasswordActivity).getAccessToken()
+                    val nickname = withContext(Dispatchers.IO) {
+                        TokenStorage(this@LoginPasswordActivity).getNickname()
                     }
 
                     startActivity(
                         Intent(this@LoginPasswordActivity, LoginWelcomeActivity::class.java).apply {
-                            putExtra("accessToken", accessToken)
+                            putExtra("nickname", nickname)
                         }
                     )
                     finish()

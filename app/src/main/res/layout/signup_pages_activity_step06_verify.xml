@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <!-- 상단: 뒤로가기 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_ios_24"
+                android:contentDescription="뒤로가기" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인증번호를 입력해주세요."
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5/12"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="end"
+            android:paddingTop="4dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <!-- 4자리 코드 입력 -->
+        <LinearLayout
+            android:id="@+id/codeRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etCode0"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:maxLength="1"
+                android:inputType="number"
+                android:textSize="22sp"
+                android:background="@drawable/rounded_gray_bg"
+                android:padding="0dp" />
+
+
+            <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etCode1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:maxLength="1"
+                android:inputType="number"
+                android:textSize="22sp"
+                android:background="@drawable/rounded_gray_bg"
+                android:padding="0dp" />
+
+
+            <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etCode2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:maxLength="1"
+                android:inputType="number"
+                android:textSize="22sp"
+                android:background="@drawable/rounded_gray_bg"
+                android:padding="0dp" />
+
+
+            <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etCode3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:maxLength="1"
+                android:inputType="number"
+                android:textSize="22sp"
+                android:background="@drawable/rounded_gray_bg"
+                android:padding="0dp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전송된 인증번호는 10분 안에 인증이 완료됩니다."
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center_horizontal" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <!-- 타이머 + 재전송 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00"
+                android:textColor="@android:color/darker_gray" />
+
+            <Space android:layout_width="8dp" android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재전송"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- 다음 버튼 -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="다음"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:backgroundTint="#B3E5FC"
+            android:enabled="false"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="30dp" />
+
+    </LinearLayout>
+</ScrollView>

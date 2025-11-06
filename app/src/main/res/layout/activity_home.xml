@@ -1,0 +1,46 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 상단 앱바 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/homeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/white"
+        app:logo="@drawable/neulaction_logo"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/black" />
+
+    <!-- 컨텐츠: ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/homePager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:background="@color/white"
+        android:layout_marginBottom="80dp" />
+
+    <!-- 하단 탭 -->
+    <!-- ✅ 커스텀 하단바 -->
+    <com.cormo.neulbeot.core.widget.HomeBottomBarView
+        android:id="@+id/homeBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_gravity="bottom"/>
+
+    <!-- 중앙 버튼 오버레이: 형제(하단바 위에 그림) -->
+    <include
+        layout="@layout/view_home_bottom_center_button"
+        android:id="@+id/bottomCenterButtom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

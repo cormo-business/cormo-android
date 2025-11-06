@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/bg_profile_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:src="@drawable/ic_person_24"
+            android:background="@drawable/bg_avatar_circle"
+            android:padding="8dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"/>
+
+        <TextView
+            android:id="@+id/tvProfileTitle"
+            android:text="닉네임님,\n에너지 코인을 모아보세요"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <Space android:layout_width="match_parent" android:layout_height="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvLevel"
+            android:layout_weight="1"
+            android:text="Lv.3  다음 승급까지"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_bolt_24"
+                app:tint="@android:color/holo_orange_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            <TextView
+                android:id="@+id/tvCoin"
+                android:text="120"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/levelProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progress="55"
+        android:max="100"
+        android:progressTint="@color/white"
+        android:backgroundTint="@android:color/white"
+        android:minHeight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnTodayWorkout"
+            android:text="오늘 운동 하기"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"/>
+
+        <Space android:layout_width="12dp" android:layout_height="match_parent"/>
+
+        <Button
+            android:id="@+id/btnWithFriends"
+            android:text="친구와 함께"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

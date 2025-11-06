@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="운동 리포트  나의 기록"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/cardReport"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#E3F2FD"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_bar_chart_24"
+                app:tint="#1E88E5"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <TextView
+                android:text="운동 리포트"
+                android:textColor="#1E88E5"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space android:layout_width="12dp" android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/cardHistory"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#F3E5F5"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_history_24"
+                app:tint="#8E24AA"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <TextView
+                android:text="나의 기록"
+                android:textColor="#8E24AA"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

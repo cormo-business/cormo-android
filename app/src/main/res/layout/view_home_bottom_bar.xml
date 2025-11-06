@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_bottom_bar_root"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- 바 배경 -->
+    <LinearLayout
+        android:id="@+id/bottom_bar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:background="@android:color/white"
+        android:elevation="6dp">
+
+        <!-- 왼쪽 2개 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:baselineAligned="false">
+
+        <include
+            android:id="@+id/item_home"
+            layout="@layout/view_nav_item"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="0dp"/>
+
+        <include
+            android:id="@+id/item_challenge"
+            layout="@layout/view_nav_item"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="0dp"/>
+        </LinearLayout>
+
+        <!-- 중앙 버튼 자리(버튼폭 70 + 여유 a dp) -->
+        <Space
+            android:layout_width="80dp"
+            android:layout_height="1dp" />
+
+        <!-- 오른쪽 2개 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:baselineAligned="false">
+
+            <include
+                android:id="@+id/item_market"
+                layout="@layout/view_nav_item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="0dp"/>
+
+            <include
+                android:id="@+id/item_profile"
+                layout="@layout/view_nav_item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="0dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

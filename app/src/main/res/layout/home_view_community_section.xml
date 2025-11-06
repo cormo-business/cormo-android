@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="커뮤니티"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/cardNotice"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#FFEBEE"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_campaign_24"
+                app:tint="#E53935"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <TextView
+                android:text="공지사항"
+                android:textColor="#E53935"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space android:layout_width="12dp" android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/cardBoard"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#E8EAF6"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_chat_24"
+                app:tint="#3949AB"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <TextView
+                android:text="자유게시판"
+                android:textColor="#3949AB"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space android:layout_width="12dp" android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/cardInvite"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#E3F2FD"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/ic_person_add_24"
+                app:tint="#1E88E5"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+            <TextView
+                android:text="친구 초대"
+                android:textColor="#1E88E5"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

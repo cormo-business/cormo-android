@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_home"
+        android:title="홈"
+        android:icon="@drawable/ic_home_24"/>
+    <item
+        android:id="@+id/tab_challenge"
+        android:title="챌린지"
+        android:icon="@drawable/ic_flag_24"/>
+    <item
+        android:id="@+id/tab_report"
+        android:title="리포트"
+        android:icon="@drawable/ic_bar_chart_24"/>
+    <item
+        android:id="@+id/tab_market"
+        android:title="마켓"
+        android:icon="@drawable/ic_forum_24"/>
+    <item
+        android:id="@+id/tab_profile"
+        android:title="프로필"
+        android:icon="@drawable/ic_person_24"/>
+</menu>

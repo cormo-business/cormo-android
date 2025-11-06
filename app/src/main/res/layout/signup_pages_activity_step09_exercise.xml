@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <!-- 상단: 뒤로가기 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_arrow_back_ios_24"
+                android:contentDescription="뒤로가기" />
+        </LinearLayout>
+
+        <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="평소에 하는 운동을 선택해주세요."
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8/12"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="end"
+            android:paddingTop="4dp" />
+
+        <Space android:layout_width="match_parent" android:layout_height="12dp"/>
+
+        <!-- 스크롤 영역 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- 없음(단독) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선택 안함"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsNone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 구기종목 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구기종목"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsBall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 투기종목 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="투기종목"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsCombat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 피트니스 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="피트니스"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsFitness"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 수영/빙상 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수영/빙상"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsSwimSkate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 육상/사이클 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="육상/사이클"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsTrackCycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <Space android:layout_width="match_parent" android:layout_height="20dp"/>
+
+            <!-- 레저/기타 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="레저/기타"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsLeisureEtc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="false"
+                android:paddingTop="10dp"/>
+
+            <!-- '기타' 선택 시 노출 -->
+            <EditText
+                android:id="@+id/etOther"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="기타 종목을 입력해주세요."
+                android:padding="12dp"
+                android:background="@android:color/transparent"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- 다음 버튼 -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="다음"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:backgroundTint="#B3E5FC"
+            android:enabled="false"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="30dp" />
+
+    </LinearLayout>
+</ScrollView>

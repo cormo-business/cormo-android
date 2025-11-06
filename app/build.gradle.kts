@@ -85,6 +85,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
 
+    // fragment 모델뷰 사용
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

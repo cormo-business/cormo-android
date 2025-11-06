@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
-import com.cormo.neulbeot.api.signup.SignupService
+import com.cormo.neulbeot.page.signup_pages.api.SignupService
 import com.cormo.neulbeot.page.home.HomeActivity
 
 class Step13ProfilePhotoActivity : AppCompatActivity() {

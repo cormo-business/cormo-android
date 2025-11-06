@@ -1,4 +1,4 @@
-package com.cormo.neulbeot.api.signup
+package com.cormo.neulbeot.page.signup_pages.api
 
 data class SignupRequest(
     val username: String,

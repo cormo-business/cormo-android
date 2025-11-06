@@ -8,21 +8,21 @@ class TokenStorage(private val context: Context) {
         context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
     }
 
-    suspend fun saveTokens(access: String, refresh: String?) {
+    fun saveTokens(access: String, refresh: String?) {
         prefs.edit {
             putString("accessToken", access)
             if (refresh != null) putString("refreshToken", refresh)
         }
     }
 
-    suspend fun saveAccessOnly(access: String) {
+    fun saveAccessOnly(access: String) {
         prefs.edit { putString("accessToken", access) }
     }
 
-    suspend fun getAccessToken(): String? = prefs.getString("accessToken", null)
-    suspend fun getRefreshToken(): String? = prefs.getString("refreshToken", null)
+    fun getAccessToken(): String? = prefs.getString("accessToken", null)
+    fun getRefreshToken(): String? = prefs.getString("refreshToken", null)
 
-    suspend fun clearTokens() {
+    fun clearTokens() {
         prefs.edit {
             remove("accessToken")
             remove("refreshToken")

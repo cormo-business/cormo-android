@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.cormo.neulbeot.page.signup_pages.Step01MethodActivity
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         // 버튼 클릭 시 LoginMethodActivity로 이동
         startButton.setOnClickListener {
-            val intent = Intent(this, Step01MethodActivity::class.java)
+            val intent = Intent(this, LoginMethodActivity::class.java)
             startActivity(intent)
             finish()
         }

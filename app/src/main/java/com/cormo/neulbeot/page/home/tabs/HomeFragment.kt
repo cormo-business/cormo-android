@@ -17,6 +17,7 @@ import com.cormo.neulbeot.page.exercise.WeekChallengeActivity
 import com.cormo.neulbeot.page.home.vm.HomeModel
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
+import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
 import java.time.LocalDate
 import java.util.Calendar
 
@@ -53,6 +54,10 @@ class HomeFragment : Fragment() {
             val currentMonth = cal.get(Calendar.MONTH) + 1 // 0부터 시작하므로 +1
 
             tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
+            
+            // 이후에 처리하기 위하여
+            sendFcmTokenAfterLogin(requireContext())
+            
 
         }
 
@@ -67,6 +72,7 @@ class HomeFragment : Fragment() {
             var total = 100+50*(level-1)
             progress.progress = (total - p) * 100 / total
         }
+
         vm.level.observe(viewLifecycleOwner) { render() }
         vm.levelProgress.observe(viewLifecycleOwner) { render() }
 

@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -62,7 +61,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.activity:activity-ktx:1.9.2")
-// Retrofit + Moshi + OkHttp (네트워크)
+    // Retrofit + Moshi + OkHttp (네트워크)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
@@ -71,15 +70,9 @@ dependencies {
     implementation("com.squareup.moshi:moshi:1.15.1")
     // Moshi Kotlin 어댑터 (여기에 KotlinJsonAdapterFactory 들어있음)
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-// kapt "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
-// Coroutines
+    // kapt "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-
-    // (선택) 이미지 로딩을 더 편하게 하고 싶다면 Coil
-    // implementation "io.coil-kt:coil:2.6.0"
-
-    // (선택) Konfetti (Flutter의 confetti 유사 효과가 필요하다면)
-    // implementation "nl.dionsegijn:konfetti-xml:2.0.4"
 
     // 하단 탭
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -87,6 +80,10 @@ dependencies {
 
     // fragment 모델뷰 사용
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    // FCM설정
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

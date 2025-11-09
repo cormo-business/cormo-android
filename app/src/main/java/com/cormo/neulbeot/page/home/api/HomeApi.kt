@@ -14,5 +14,6 @@ data class HomeInitResponse (
     val point: Int,
     val levelProgress: Int,
     val attendanceNum: Int,
-    val profilePath: String
+    val profilePath: String,
+    val userId: Long
 )

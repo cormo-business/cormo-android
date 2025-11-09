@@ -4,6 +4,7 @@ import android.content.Context
 import com.cormo.neulbeot.auth.AccessTokenInterceptor
 import com.cormo.neulbeot.auth.TokenAuthenticator
 import com.cormo.neulbeot.auth.TokenStorage
+import com.cormo.neulbeot.fcm.FcmApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -15,10 +16,21 @@ import java.util.concurrent.TimeUnit
 object ApiClient {
 
     @Volatile private var retrofitInst: Retrofit? = null
+    @Volatile private var fcmApiInst: FcmApi? = null
 
     fun retrofit(context: Context): Retrofit {
         return retrofitInst ?: synchronized(this) {
             retrofitInst ?: buildRetrofit(context).also { retrofitInst = it }
+        }
+    }
+
+    fun fcm(context: Context): FcmApi {
+        val cached = fcmApiInst
+        if (cached != null) return cached
+        return synchronized(this) {
+            fcmApiInst ?: retrofit(context.applicationContext)
+                .create(FcmApi::class.java)
+                .also { fcmApiInst = it }
         }
     }
 

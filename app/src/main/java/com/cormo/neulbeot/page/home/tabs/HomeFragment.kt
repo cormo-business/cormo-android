@@ -11,14 +11,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.R
-import com.cormo.neulbeot.page.attendance.AttendanceCheckActivity
 import com.cormo.neulbeot.page.exercise.WithFriendsActivity
 import com.cormo.neulbeot.page.exercise.WeekChallengeActivity
 import com.cormo.neulbeot.page.home.vm.HomeModel
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
-import java.time.LocalDate
+import com.cormo.neulbeot.page.home.HomeActivity
+import com.cormo.neulbeot.page.login.LoginMethodActivity
 import java.util.Calendar
 
 class HomeFragment : Fragment() {
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
         val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
 
-        vm.loadIfNeeded()
+        vm.initHome()
 
         vm.attendanceNum.observe(viewLifecycleOwner){ num ->
             val cal = Calendar.getInstance()
@@ -94,10 +94,14 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), WithFriendsActivity::class.java))
         }
 
+
         // ===== 출석 카드 =====
         val btnAttendance = v.findViewById<Button>(R.id.btnAttendance)
         btnAttendance.setOnClickListener {
-            startActivity(Intent(requireContext(), AttendanceCheckActivity::class.java))
+            vm.attendance()
+
+            // todo
+//            startActivity(Intent(requireContext(), AttendanceCheckActivity::class.java))
         }
 
         // ===== 챌린지/모임 카드 클릭(샘플) =====

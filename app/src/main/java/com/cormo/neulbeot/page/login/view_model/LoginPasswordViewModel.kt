@@ -1,6 +1,7 @@
 package com.cormo.neulbeot.page.login.view_model
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.cormo.neulbeot.api.login.LoginApi
 import com.cormo.neulbeot.api.login.LoginRequest
@@ -22,6 +23,8 @@ class LoginPasswordViewModel(app: Application) : AndroidViewModel(app) {
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String> = _nickname
 
+    val TAG: String = "로그"
+
     fun login(username: String, password: String) {
         if (username.isBlank() || password.isBlank()) {
             _error.value = "전화번호 또는 비밀번호가 비어 있습니다."
@@ -38,6 +41,7 @@ class LoginPasswordViewModel(app: Application) : AndroidViewModel(app) {
                     val access = res.headers()["accessToken"].orEmpty()
                     val refresh = res.headers()["refreshToken"].orEmpty()
 
+                    Log.d(TAG, "로그인 성공 refresh${refresh}")
                     if (access.isEmpty()) {
                         _error.postValue("로그인 실패: accessToken 누락")
                     } else {

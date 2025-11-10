@@ -7,4 +7,5 @@ object ApiConfig {
 
     // 서버가 요구하는 액세스 토큰 헤더 이름
     const val ACCESS_HEADER_NAME = "accessToken"
+    const val REFRESH_HEADER_NAME = "refreshToken"
 }

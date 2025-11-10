@@ -20,15 +20,37 @@ class HomeRepository(
             val body = res.body()
             if (res.isSuccessful && body != null) {
                 // 유저 ID 저장하기
-                Log.d("FCM", "initHome: ${body.userId}")
+                Log.d("로그", "initHome: ${body.userId}, ${body.checkAttendance}")
+
                 context.getSharedPreferences("auth", MODE_PRIVATE)
                     .edit {
                         putLong("userId", body.userId)
+                        putBoolean("attendance", body.checkAttendance)
                     }
-
                 Result.success(body)
             } else {
+                // 토큰 재발급해서 다시 실행하기
                 Result.failure(
+                    HttpException(res)  // 코드/메시지 포함
+                )
+            }
+        } catch (t: Throwable) {
+            Result.failure(t)
+        }
+    }
+
+    // 출석 체크하기
+    suspend fun attendance():Result<Long>{
+
+        return try {
+
+            val res = api.attendance()
+            val body = res.body()
+            if(res.isSuccessful && body != null){
+                Result.success(body)
+            }else{
+                Result.failure(
+                    // 실패 처리
                     HttpException(res)  // 코드/메시지 포함
                 )
             }

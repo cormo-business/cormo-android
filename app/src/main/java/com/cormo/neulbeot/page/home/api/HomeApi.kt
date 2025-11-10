@@ -2,10 +2,14 @@ package com.cormo.neulbeot.page.home.api
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface HomeApi {
     @GET("/api/member/init/info")
     suspend fun init(): Response<HomeInitResponse>
+
+    @POST("/api/attendance")
+    suspend fun attendance(): Response<Long>
 }
 
 data class HomeInitResponse (
@@ -15,5 +19,6 @@ data class HomeInitResponse (
     val levelProgress: Int,
     val attendanceNum: Int,
     val profilePath: String,
-    val userId: Long
+    val userId: Long,
+    val checkAttendance: Boolean
 )

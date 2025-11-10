@@ -111,7 +111,7 @@ object SignupService {
                         val refresh = res.headers()["refreshToken"]
 
                         // ✅ 저장
-                        if (!access.isNullOrBlank()) {
+                        if (!access.isNullOrBlank() && !refresh.isNullOrBlank()) {
                             TokenStorage(context).saveTokens(access = access, refresh = refresh)
                         }
                         callback(true, "${res.code()}")

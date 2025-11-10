@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 
 class AuthRepository(private val context: Context) {
     private val storage = TokenStorage(context)
-    private val service = ApiClient.retrofit(context).create(AuthService::class.java)
+    private val service = ApiClient.retrofit(context).create(AuthApi::class.java)
 
     suspend fun loadSaved(): AuthState {
         val token = storage.getAccessToken()

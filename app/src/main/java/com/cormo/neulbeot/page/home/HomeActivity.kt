@@ -1,19 +1,28 @@
 package com.cormo.neulbeot.page.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.cormo.neulbeot.MainActivity
 import com.cormo.neulbeot.R
+import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.home.tabs.*
 import com.cormo.neulbeot.core.widget.HomeBottomBarView
+import com.cormo.neulbeot.page.home.vm.HomeModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 class HomeActivity : AppCompatActivity() {
+
+    private val vm: HomeModel by viewModels()
 
     private lateinit var pager: ViewPager2
     private lateinit var bottomBar: HomeBottomBarView
@@ -67,22 +76,22 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+        val TAG: String = "로그"
+        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
+        val refresh = sharedPreferences.getString("refreshToken", null)
+        val acc = sharedPreferences.getString("accessToken", null)
 
-        // ▼ 페이지 스와이프로 바뀌면 하단바 상태도 동기화
-        // pager.isUserInputEnabled = true 바꿔야함
-//        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                // 포지션 매핑: 0=홈, 1=챌린지, 2=리포트(중앙은 2가 아님), 3=마켓, 4=프로필
-//                val index = when (position) {
-//                    0 -> 0
-//                    1 -> 1
-//                    3 -> 3
-//                    4 -> 4
-//                    else -> bottomBar.currentIndex  // 리포트(2)는 하단 탭과 직접 매핑 없음 (필요하면 추가)
-//                }
-//                bottomBar.currentIndex = index
-//            }
-//        })
+        Log.d(TAG, "HomeActivity - onCreate() called re:${refresh}, acc:${acc}")
+        // 토큰없어서
+        vm.errorToken.observe(this){ error ->
+            if(error != null){
+                startActivity(Intent(this, MainActivity::class.java))
+                val storage = TokenStorage(this)
+                storage.removeAccess()
+                finish()
+            }
+        }
+
 
     }
 }

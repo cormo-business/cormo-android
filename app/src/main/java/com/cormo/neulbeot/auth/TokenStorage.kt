@@ -5,13 +5,13 @@ import androidx.core.content.edit
 
 class TokenStorage(private val context: Context) {
     private val prefs by lazy {
-        context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        context.getSharedPreferences("auth", Context.MODE_PRIVATE)
     }
 
-    fun saveTokens(access: String, refresh: String?) {
+    fun saveTokens(access: String, refresh: String) {
         prefs.edit {
             putString("accessToken", access)
-            if (refresh != null) putString("refreshToken", refresh)
+            putString("refreshToken", refresh)
         }
     }
 
@@ -22,6 +22,11 @@ class TokenStorage(private val context: Context) {
     fun getAccessToken(): String? = prefs.getString("accessToken", null)
     fun getRefreshToken(): String? = prefs.getString("refreshToken", null)
 
+    fun removeAccess(){
+        prefs.edit{
+            remove("accessToken")
+        }
+    }
     fun clearTokens() {
         prefs.edit {
             remove("accessToken")

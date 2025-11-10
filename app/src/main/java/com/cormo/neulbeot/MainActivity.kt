@@ -14,8 +14,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
+import com.cormo.neulbeot.page.home.HomeActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,11 +46,22 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // ✅ 채널 생성
+        // 채널 생성
         ensureNotificationChannel()
 
-        // ✅ 권한 요청 (API 33+)
+        // 권한 요청 (API 33+)
         ensureNotificationPermission()
+
+        val storage = TokenStorage(this)
+        val accessToken = storage.getAccessToken()
+        if (accessToken != null) {
+            lifecycleScope.launch {
+                delay(200) // 0.1초 대기
+                startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                finish() // 현재 액티비티 종료
+            }
+        }
+
 
         val startButton = findViewById<Button>(R.id.startButton)
         startButton.setOnClickListener {

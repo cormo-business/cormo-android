@@ -1,5 +1,6 @@
 package com.cormo.neulbeot.auth
 
+import android.util.Log
 import com.cormo.neulbeot.core.ApiConfig
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -17,23 +18,29 @@ class TokenAuthenticator(
     private val storage: TokenStorage
 ) : Authenticator {
 
+    val TAG: String = "로그"
     override fun authenticate(route: Route?, response: Response): Request? {
         // 무한루프 방지: 이미 재시도한 요청이면 중단
-        if (responseCount(response) >= 1) return null
+        if (responseCount(response) > 1) return null
 
         val refreshToken = runBlocking { storage.getRefreshToken() } ?: return null
-        val service = retrofit.create(AuthService::class.java)
+        val service = retrofit.create(AuthApi::class.java)
 
-        val newAccess = runBlocking {
+        val newToken = runBlocking {
             try {
-                val res = service.reissue(ReissueRequest(refreshToken))
+                Log.d(TAG, "reissue() called ${refreshToken}")
+                val res = service.reissue(refreshToken)
                 if (res.isSuccessful) {
-                    val token = res.body()?.accessToken
-                    if (!token.isNullOrEmpty()) {
-                        storage.saveAccessOnly(token)
-                        token
+                    val access = res.body()?.accessToken
+                    Log.d(TAG, "TokenAuthenticator - 성공() called")
+                    if (!access.isNullOrEmpty()) {
+                        storage.saveAccessOnly(access)
+                        access
                     } else null
-                } else null
+                } else {
+                    Log.d(TAG, "TokenAuthenticator - 실패() called ${res.errorBody()?.string()}")
+                    null
+                }
             } catch (_: Throwable) {
                 null
             }
@@ -41,7 +48,7 @@ class TokenAuthenticator(
 
         // 새 토큰으로 원요청 재작성
         return response.request.newBuilder()
-            .header(ApiConfig.ACCESS_HEADER_NAME, newAccess)
+            .header(ApiConfig.ACCESS_HEADER_NAME, newToken)
             .build()
     }
 

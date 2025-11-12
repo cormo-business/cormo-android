@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:gravity="center"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="364dp"
+        android:layout_height="271dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_start_dialog"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:background="@color/green"
+            />
+
+        <TextView
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_info"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="156dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_go_exercise_view"
+                android:text="나중에"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/green"
+                />
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_width="156dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_feedback"
+                android:text="시작하기"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

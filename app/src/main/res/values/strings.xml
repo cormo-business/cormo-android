@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NeulAction</string>
-</resources>
+    <string name="game_info">
+    손으로 꼬치를 잡고 움직이며\n
+    하늘에서 떨어지는 재료를 받아 꽂아요!\n
+    <font color="#09AA4C">같은 모양, 정해진 순서대로 맞추면 점수 UP!</font>
+</string></resources>

@@ -15,7 +15,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="67dp"
-            android:background="@color/green"
+            android:background="@drawable/bg_info_dialog_top"
+            android:text="꼬치 만들기"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
             />
 
         <TextView
@@ -34,6 +39,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <TextView
+                android:id="@+id/btn_no"
                 android:layout_width="156dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_go_exercise_view"
@@ -44,7 +50,8 @@
                 android:textColor="@color/green"
                 />
             <TextView
-                android:layout_marginLeft="8dp"
+                android:id="@+id/btn_start"
+                android:layout_marginStart="8dp"
                 android:layout_width="156dp"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_feedback"

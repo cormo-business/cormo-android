@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         val startButton = findViewById<Button>(R.id.startButton)
         startButton.setOnClickListener {
             val intent = Intent(this, LoginMethodActivity::class.java)
@@ -81,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
     }
 
     /** 🔸 채널 생성 */

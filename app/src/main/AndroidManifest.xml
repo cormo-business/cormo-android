@@ -60,6 +60,10 @@
         <activity android:name=".page.login.LoginPasswordActivity" />
         <activity android:name=".page.login.LoginWelcomeActivity" />
 
+        <!-- 운동 화면-->
+        <activity android:name=".page.exercise.ExerciseActivity"/>
+        <activity android:name=".page.exercise.ExerciseEndActivity"/>
+
         <!-- Firebase Messaging Service 등록 -->
         <service
             android:name=".fcm.MyFirebaseMessagingService"

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_trophy"
+        />
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="운동 완료"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_marginTop="6dp"
+        android:layout_width="113dp"
+        android:layout_height="31dp"
+        android:text="꼬치 만들기"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/bg_stroke_green"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="152dp"
+            android:layout_height="48dp"
+            android:text="운동보러가기"
+            android:textSize="16sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_go_exercise_view"
+            />
+
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="152dp"
+            android:layout_height="48dp"
+            android:text="피드백 보기"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_feedback"
+            />
+    </LinearLayout>
+</LinearLayout>

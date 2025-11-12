@@ -1,87 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/cardview_dark_background">
+    android:background="@drawable/bg_game">
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="234dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="223dp"
-        android:layout_marginRight="25dp"
-        android:background="@color/white"
-        android:orientation="vertical"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_person_black"
+        app:layout_constraintBottom_toTopOf="@+id/txt_noti"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="50dp"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="71dp"
-            android:gravity="center"
-            android:text="START!"
-            android:textColor="@color/green"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txt_noti"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginHorizontal="115.5dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/bg_noti"
+        android:gravity="center"
+        android:text="몸을 위에 그림에 맞추세요"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_start_end"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:text="운동을 시작합니다. 화이팅!"
-            android:textColor="#CC353535"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="22dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_green"
-            android:gravity="center"
-            android:text="확인"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-<!--    <TextView-->
-<!--        android:layout_width="94dp"-->
-<!--        android:layout_height="94dp"-->
-<!--        android:layout_gravity="top|center"-->
-<!--        android:layout_marginTop="194dp"-->
-<!--        android:background="@drawable/bg_circle_white"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <LinearLayout
-        android:layout_width="94dp"
-        android:layout_height="94dp"
-        android:layout_gravity="top|center"
-        android:layout_marginTop="194dp"
-        android:background="@drawable/bg_circle_white"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_start_end"
+        android:layout_width="152dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="80dp"
+        >
+
+        <View
+            android:id="@+id/space_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_bottom_start"
+            />
+        
+        <ImageView
+            android:layout_marginStart="27dp"
+            app:layout_constraintBottom_toBottomOf="@id/space_bottom"
+            app:layout_constraintTop_toTopOf="@id/space_bottom"
+            app:layout_constraintLeft_toLeftOf="@id/space_bottom"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_stop"
+            />
+
+        <ImageView
+            android:layout_marginEnd="27dp"
+            app:layout_constraintBottom_toBottomOf="@id/space_bottom"
+            app:layout_constraintTop_toTopOf="@id/space_bottom"
+            app:layout_constraintRight_toRightOf="@id/space_bottom"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_end"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    val startImg = findViewById<ConstraintLayout>(R.id.start_img)
+        startImg.visibility = View.VISIBLE   // 보이게
+        startImg.visibility = View.GONE      // 숨기게
+-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/start_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="234dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="223dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/bg_start_dialog"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="71dp"
+                android:gravity="center"
+                android:text="START!"
+                android:textColor="@color/green"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="운동을 시작합니다. 화이팅!"
+                android:textColor="#CC353535"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_green"
+                android:gravity="center"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="194dp"
+            android:background="@drawable/bg_circle_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bg_triangle_white"
+                />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    val startImg = findViewById<LinearLayout>(R.id.ing_img)
+        startImg.visibility = View.VISIBLE   // 보이게
+        startImg.visibility = View.GONE      // 숨기게
+-->
+    <LinearLayout
+        android:id="@+id/ing_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:background="#80000000"
+        android:visibility="gone"
         >
 
         <ImageView
-            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bg_triangle_white"
-            />
+            android:src="@drawable/ic_3"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동으로 시작합니다"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

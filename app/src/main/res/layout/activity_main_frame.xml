@@ -16,6 +16,8 @@
         app:titleTextColor="@android:color/black" />
 
     <!-- 컨텐츠: ViewPager2 -->
+
+<!--  -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/homePager"
         android:layout_width="match_parent"
@@ -25,7 +27,7 @@
         android:layout_marginBottom="80dp" />
 
     <!-- 하단 탭 -->
-    <!-- ✅ 커스텀 하단바 -->
+    <!-- 커스텀 하단바 -->
     <com.cormo.neulbeot.core.widget.HomeBottomBarView
         android:id="@+id/homeBottomBar"
         android:layout_width="match_parent"

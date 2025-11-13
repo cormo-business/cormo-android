@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.R
-import com.cormo.neulbeot.page.exercise.ExerciseActivity
+import com.cormo.neulbeot.page.exercise.ExActivity
 
 class ProfileFragment: Fragment(R.layout.challenge_page)  {
 
@@ -25,7 +25,8 @@ class ProfileFragment: Fragment(R.layout.challenge_page)  {
 
         val btnStart = v.findViewById<TextView>(R.id.btn_start)
         btnStart.setOnClickListener {
-            startActivity(Intent(requireContext(), ExerciseActivity::class.java))
+//            startActivity(Intent(requireContext(), ExerciseActivity::class.java))
+            startActivity(Intent(requireContext(), ExActivity::class.java))
         }
     }
 }

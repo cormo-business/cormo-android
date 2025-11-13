@@ -38,7 +38,7 @@ class ExEndFragment: Fragment(R.layout.activity_end_fragment) {
         vm.save(nickname, score)
 
         vm.memberId.observe(viewLifecycleOwner){ memberId ->
-            Toast.makeText(context, "당신의 id는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
         }
 
     }

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@android:color/white"
+    app:strokeColor="@color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -57,7 +58,7 @@
             android:layout_marginTop="14dp"
             android:progress="50"
             android:max="100"
-            android:progressDrawable="@drawable/progress_bar"
+            android:progressDrawable="@drawable/progress_bar_game"
             />
 
         <LinearLayout

@@ -16,7 +16,25 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
         val showDialog = v.findViewById<TextView>(R.id.game_start)
         val btnStart = v.findViewById<TextView>(R.id.btn_start)
         val gameStartDialog = v.findViewById<View>(R.id.gameStartDialog)
+        val weeklyChallengeCard = v.findViewById<View>(R.id.WeeklyChallengeCard)
+        val btnClose = v.findViewById<ImageView>(R.id.btn_close)
+        val btnMore = v.findViewById<ImageView>(R.id.btn_plus)
 
+
+        // 주간 챌린지 카드 열기
+        btnMore.setOnClickListener {
+            weeklyChallengeCard.visibility = View.VISIBLE
+            btnMore.visibility = View. GONE
+        }
+
+
+        // 주간 챌린지 카드 닫기
+        btnClose.setOnClickListener {
+            weeklyChallengeCard.visibility = View.GONE
+            btnMore.visibility = View.VISIBLE
+        }
+
+        // 게임 시작 모달 창 열기
         showDialog.setOnClickListener {
             val gameStartDialog = v.findViewById<View>(R.id.gameStartDialog)
             gameStartDialog.visibility = View.VISIBLE

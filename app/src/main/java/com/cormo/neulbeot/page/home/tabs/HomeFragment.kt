@@ -94,12 +94,10 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), WithFriendsActivity::class.java))
         }
 
-
-        // ===== 출석 카드 =====
+        //출석 카드
         val btnAttendance = v.findViewById<Button>(R.id.btnAttendance)
         btnAttendance.setOnClickListener {
             vm.attendance()
-
             // todo
 //            startActivity(Intent(requireContext(), AttendanceCheckActivity::class.java))
         }

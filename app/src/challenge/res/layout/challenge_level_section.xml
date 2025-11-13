@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
     <LinearLayout
-        android:padding="16dp"
+        android:paddingVertical="18dp"
+        android:paddingHorizontal="22dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,59 +22,68 @@
             android:layout_height="wrap_content">
             <TextView
                 android:text="오늘의 진행 상황"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#353535"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <View
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
             <TextView
-                android:id="@+id/tvDone"
-                android:text="2/4 완료"
-                android:textColor="#00C8E5"
-                android:textStyle="bold"
+                android:text="40 포인트 제공"
                 android:textSize="14sp"
+                android:textColor="@color/darkGreen"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_get_point"
+                android:paddingHorizontal="12sp"
+                />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvPoint"
-            android:text="40 포인트 제공"
-            android:textColor="#88000000"
-            android:textSize="12sp"
-            android:layout_marginTop="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_marginTop="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:src="@drawable/line"
+            />
 
         <ProgressBar
             android:id="@+id/progressToday"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="11dp"
+            android:layout_marginTop="14dp"
             android:progress="50"
             android:max="100"
-            android:progressTint="#00C8E5"
-            android:backgroundTint="#EEEEEE"/>
+            android:progressDrawable="@drawable/progress_bar"
+            />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp">
+            android:weightSum="1"
+            android:layout_marginTop="10dp">
             <TextView
                 android:id="@+id/tvRate"
                 android:text="진행률 50%"
-                android:textSize="12sp" android:layout_height="0dp"
-                tools:ignore="Suspicious0dp"  android:layout_width="wrap_content"/>
-
+                android:textColor="@color/darkGreen"
+                android:textSize="14sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
             <TextView
-                android:id="@+id/tvLeft"
-                android:text="2개 미션 남음"
-                android:layout_height="0dp"
-                tools:ignore="Suspicious0dp"
+                android:id="@+id/tvDone"
+                android:text="2/4 완료"
+                android:textColor="@color/darkGreen"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

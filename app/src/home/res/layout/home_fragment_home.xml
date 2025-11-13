@@ -1,5 +1,5 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,6 +10,18 @@
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- 상단 앱바 -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/homeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/white"
+            app:logo="@drawable/neulaction_logo"
+            android:layout_marginBottom="20dp"
+            app:titleCentered="true"
+            app:titleTextColor="@android:color/black" />
+
 
         <!-- 프로필 섹션 -->
         <include layout="@layout/home_view_profile_section"/>

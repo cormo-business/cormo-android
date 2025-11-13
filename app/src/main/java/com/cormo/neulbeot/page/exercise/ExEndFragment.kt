@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.vm.ExerciseViewModel
+import org.w3c.dom.Text
 import kotlin.getValue
 
 class ExEndFragment: Fragment(R.layout.activity_end_fragment) {
@@ -18,6 +19,13 @@ class ExEndFragment: Fragment(R.layout.activity_end_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val btnBackHome = view.findViewById<TextView>(R.id.btn_back_home)
+        val btnFeedBack = view.findViewById<TextView>(R.id.btn_go_feedback)
+
+        btnFeedBack.setOnClickListener {
+            Toast.makeText(context, "잘했어 굿굿", Toast.LENGTH_SHORT).show()
+
+        }
+
         btnBackHome.setOnClickListener {
             requireActivity().finish() // ExActivity 자체를 사라지게 함
         }

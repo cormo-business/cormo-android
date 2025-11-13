@@ -22,6 +22,7 @@
         android:textStyle="bold"
         android:gravity="center"
         />
+
     <TextView
         android:layout_marginTop="6dp"
         android:layout_width="113dp"
@@ -41,6 +42,7 @@
         android:gravity="center"
         >
         <TextView
+            android:id="@+id/btn_back_home"
             android:layout_width="152dp"
             android:layout_height="48dp"
             android:text="운동보러가기"
@@ -52,6 +54,7 @@
             />
 
         <TextView
+            android:id="@+id/btn_go_feedback"
             android:layout_marginStart="10dp"
             android:layout_width="152dp"
             android:layout_height="48dp"

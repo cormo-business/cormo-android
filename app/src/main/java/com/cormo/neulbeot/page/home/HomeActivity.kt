@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var bottomBar: HomeBottomBarView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_main_frame)
 
         pager = findViewById(R.id.homePager)
         bottomBar = findViewById(R.id.homeBottomBar)

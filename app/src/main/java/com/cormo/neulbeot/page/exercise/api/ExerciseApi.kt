@@ -11,7 +11,8 @@ interface ExerciseApi {
 }
 
 data class SaveRecordRequest (
-    val memberId: Long,
+    val nickname: String,
+//    val memberId: Long,
 //    val weight: Integer,
 //    val repeatNumber: Integer,
 //    val successNumber: Integer,

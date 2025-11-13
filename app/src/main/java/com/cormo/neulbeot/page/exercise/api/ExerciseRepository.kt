@@ -28,7 +28,7 @@ class ExerciseRepository(
             val body = res.body()
             if (res.isSuccessful && body != null) {
                 // 정상 응답
-                Log.d("로그", "저장완료 닉네임?: ${body.recordId}")
+                Log.d("로그", "저장완료 닉네임?: ${body.memberId}")
 
 //                context.getSharedPreferences("auth", MODE_PRIVATE)
 //                    .edit {

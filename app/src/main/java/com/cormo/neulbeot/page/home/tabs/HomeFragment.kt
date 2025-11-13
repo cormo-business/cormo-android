@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
             tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
             
-            // 이후에 처리하기 위하여
+            // vm 인식 이후에 처리하기 위하여
             sendFcmTokenAfterLogin(requireContext())
             
 

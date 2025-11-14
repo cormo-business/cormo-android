@@ -45,20 +45,22 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repo.initHome()
             Log.d("로그", result.toString())
-
-            withContext(Dispatchers.Main) {
-                result.onSuccess { b ->
-                    _nickname.value = b.nickname
-                    _level.value = b.level
-                    _point.value = b.point
-                    _attendanceNum.value = b.attendanceNum
-                    _profilePath.value = b.profilePath
-                    _levelProgress.value = b.levelProgress
-                }.onFailure { e ->
-                    _errorToken.value = "초기화 실패: ${e.message ?: "unknown"}"
-                    Log.d(TAG, "HomeModel - initHome()${e.message} called")
+            if(result != null){
+                withContext(Dispatchers.Main) {
+                    result.onSuccess { b ->
+                        _nickname.value = b.nickname
+                        _level.value = b.level
+                        _point.value = b.point
+                        _attendanceNum.value = b.attendanceNum
+                        _profilePath.value = b.profilePath
+                        _levelProgress.value = b.levelProgress
+                    }.onFailure { e ->
+                        _errorToken.value = "초기화 실패: ${e.message ?: "unknown"}"
+                        Log.d(TAG, "HomeModel - initHome()${e.message} called")
+                    }
                 }
             }
+
         }
     }
 

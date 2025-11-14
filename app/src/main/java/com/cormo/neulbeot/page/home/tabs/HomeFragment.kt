@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
             tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
             
-            // 이후에 처리하기 위하여
+            // vm 인식 이후에 처리하기 위하여
             sendFcmTokenAfterLogin(requireContext())
             
 
@@ -94,12 +94,10 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), WithFriendsActivity::class.java))
         }
 
-
-        // ===== 출석 카드 =====
+        //출석 카드
         val btnAttendance = v.findViewById<Button>(R.id.btnAttendance)
         btnAttendance.setOnClickListener {
             vm.attendance()
-
             // todo
 //            startActivity(Intent(requireContext(), AttendanceCheckActivity::class.java))
         }

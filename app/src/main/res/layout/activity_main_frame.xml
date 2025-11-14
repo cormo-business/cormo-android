@@ -1,19 +1,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_main"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 상단 앱바 -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/homeToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@android:color/white"
-        app:logo="@drawable/neulaction_logo"
-        app:titleCentered="true"
-        app:titleTextColor="@android:color/black" />
 
     <!-- 컨텐츠: ViewPager2 -->
 
@@ -22,7 +14,6 @@
         android:id="@+id/homePager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
         android:background="@color/white"
         android:layout_marginBottom="80dp" />
 

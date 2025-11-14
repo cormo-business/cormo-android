@@ -15,6 +15,7 @@ import com.cormo.neulbeot.R
 import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.home.tabs.*
 import com.cormo.neulbeot.core.widget.HomeBottomBarView
+import com.cormo.neulbeot.page.exercise.ExActivity
 import com.cormo.neulbeot.page.home.vm.HomeModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,7 +59,8 @@ class HomeActivity : AppCompatActivity() {
         // ▼ 중앙 버튼 → 원하는 화면으로 이동
         findViewById<View?>(R.id.bottomCenterButtom)?.setOnClickListener{
             // 나중에 실제 페이지가 생기면 여기서 startActivity(...)로 교체
-            Toast.makeText(this@HomeActivity, "준비 중입니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@HomeActivity, "준비 중입니다.", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@HomeActivity, ExActivity::class.java))
 
             // 버튼 누르고 원하는 화면 있을시 연결하기
             // ---example---

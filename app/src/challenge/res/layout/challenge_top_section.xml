@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_top"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="47dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LV.14"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#353535"
+                />
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에너지 코인"
+                android:textSize="14sp"
+                android:textColor="#353535"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100/300"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#353535"
+                />
+            <ImageView
+                android:src="@drawable/ic_bolt_green_full"
+                app:tint="@color/green"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressToday"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:progress="50"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_bar_level"
+            />
+    </LinearLayout>
+
+</FrameLayout>

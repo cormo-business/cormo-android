@@ -28,11 +28,20 @@ class ExStartFragment: Fragment(R.layout.activity_start_fragment) {
         }
 
         btnDone.setOnClickListener { it ->
+            val bundle = Bundle().apply {
+                putString("nickname", "재우")
+                putInt("score", 85)
+            }
+
+            val fragment = ExEndFragment().apply {
+                arguments = bundle
+            }
+
             // 1) 스택에서 빼기
             parentFragmentManager.popBackStack()
             // 2) 다시 FirstFragment를 replace로 올리기 (새로 생성)
              parentFragmentManager.beginTransaction()
-                 .replace(R.id.activity_main_frame, ExEndFragment())
+                 .replace(R.id.activity_main_frame, fragment)
                  .commit()
         }
     }

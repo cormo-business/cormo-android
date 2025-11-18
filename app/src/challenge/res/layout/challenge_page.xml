@@ -3,62 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#36CC74"
+    android:background="@drawable/bg_challenge"
     >
-
-    <ScrollView
-        android:layout_marginTop="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="안녕" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="안녕"
-                android:textSize="100sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="안녕" />
-            <TextView
-                android:id="@+id/game_start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="시작하기" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="안녕" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="안녕" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="100sp"
-                android:text="안녕" />
-
-        </LinearLayout>
-    </ScrollView>
 
     <TextView
         android:id="@+id/nav_bar"
@@ -76,15 +22,50 @@
         />
 
     <LinearLayout
+        android:id="@+id/top_nav"
         app:layout_constraintTop_toBottomOf="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
         <include layout="@layout/challenge_top_section"/>
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@+id/top_nav"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingHorizontal="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_marginTop="150dp"
+            android:gravity="center"
+            android:id="@+id/game_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_game_start"
+            android:text="게임1"/>
+
+        <TextView
+            android:id="@+id/game_start2"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_game_start"
+            android:text="게임2"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bottom_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

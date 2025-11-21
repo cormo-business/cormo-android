@@ -29,8 +29,16 @@ class ExEndActivity: AppCompatActivity(){
             finish() // ExActivity 자체를 사라지게 함
         }
 
-        // API 통신
-        vm.save()
+        val stringExtra = intent.getStringExtra("activity")
+        Toast.makeText(this, "${stringExtra} 운동 완료", Toast.LENGTH_SHORT).show()
+        if(stringExtra == "jjuka"){
+            // API 통신
+            vm.saveJJuka()
+        }else if(stringExtra == "squart"){
+            vm.saveSquart()
+        }else{
+            
+        }
 
         vm.memberId.observe(this){ memberId ->
             Toast.makeText(this, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()

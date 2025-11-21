@@ -94,8 +94,8 @@ class JJukaActivity : ComponentActivity() {
                             overlayView.update(result, info)
 
                             if(stretchState.phase == StretchState.StretchPhase.FINISHED){
-                                Toast.makeText(this, "잘했어 굿굿", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, ExEndActivity::class.java))
+                                startActivity(Intent(this, ExEndActivity::class.java)
+                                    .putExtra("activity","jjuka"))
                                 stretchState.phase = StretchState.StretchPhase.END
                                 finish()
                             }

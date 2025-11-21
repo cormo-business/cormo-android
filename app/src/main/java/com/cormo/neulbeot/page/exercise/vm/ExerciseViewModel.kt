@@ -1,7 +1,6 @@
 package com.cormo.neulbeot.page.exercise.vm
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -23,11 +22,10 @@ class ExerciseViewModel(app: Application) : AndroidViewModel(app) {
     val memberId: LiveData<Long> = _memberId
 
 
-    fun save(
+    fun saveJJuka(
     ) {
 
         val userId = TokenStorage(getApplication()).getUserId() ?: -1
-
 
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -46,5 +44,9 @@ class ExerciseViewModel(app: Application) : AndroidViewModel(app) {
                 }
             }
         }
+    }
+
+    fun saveSquart() {
+        TODO("Not yet implemented")
     }
 }

@@ -27,6 +27,7 @@ class StretchState {
             return
         }
 
+        // 성공한거 무시하는 코드
         if ((detected == StretchPhase.HANDS_UP && handsUpDone) ||
             (detected == StretchPhase.LEFT_HOLD && leftDone) ||
             (detected == StretchPhase.RIGHT_HOLD && rightDone)
@@ -36,6 +37,7 @@ class StretchState {
             return
         }
 
+        // 포즈 이상하면 리셋시키기
         if (phase != detected) {
             holdTimeMs = 0L
             phase = detected
@@ -59,11 +61,16 @@ class StretchState {
                 }
                 StretchPhase.RIGHT_HOLD -> {
                     rightDone = true
-                    phase = StretchPhase.FINISHED
+                    phase = StretchPhase.LEFT_HOLD
                 }
                 else -> {}
             }
             holdTimeMs = 0L
+            if (handsUpDone && leftDone && rightDone) {
+                phase = StretchPhase.FINISHED
+            }else if(!handsUpDone && leftDone && rightDone){
+                phase = StretchPhase.IDLE
+            }
         }
     }
 

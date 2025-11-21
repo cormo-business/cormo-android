@@ -35,14 +35,5 @@
         android:stateListAnimator="@null"
         android:layout_gravity="center" />
 
-    <Button
-        android:id="@+id/test_btn"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#00B8D4"
-        android:text="이동해"
-        android:textSize="30sp"
-        />
 
 </LinearLayout>

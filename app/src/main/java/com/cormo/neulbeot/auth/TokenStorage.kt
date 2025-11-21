@@ -22,6 +22,8 @@ class TokenStorage(private val context: Context) {
     fun getAccessToken(): String? = prefs.getString("accessToken", null)
     fun getRefreshToken(): String? = prefs.getString("refreshToken", null)
 
+    fun getUserId(): Long? = prefs.getLong("userId", -1)
+
     fun removeAccess(){
         prefs.edit{
             remove("accessToken")

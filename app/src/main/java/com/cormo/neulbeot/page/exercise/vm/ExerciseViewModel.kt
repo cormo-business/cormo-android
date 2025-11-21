@@ -24,16 +24,15 @@ class ExerciseViewModel(app: Application) : AndroidViewModel(app) {
 
 
     fun save(
-        name: String,
-        score: Int
     ) {
 
-        val nickname = TokenStorage(getApplication()).getNickname() ?: "닉네임"
+        val userId = TokenStorage(getApplication()).getUserId() ?: -1
+
 
         viewModelScope.launch(Dispatchers.IO) {
 
             var result = repo.saveRecord(
-                request = SaveRecordRequest(nickname)
+                request = SaveRecordRequest(userId)
             )
 
             withContext(Dispatchers.Main) {

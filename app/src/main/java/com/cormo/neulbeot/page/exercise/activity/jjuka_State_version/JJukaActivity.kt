@@ -1,28 +1,29 @@
 package com.cormo.neulbeot.page.exercise.activity.jjuka_State_version
 
-import com.cormo.neulbeot.R
-
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Surface
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.core.content.ContextCompat
-import android.view.Surface
-import android.view.View
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.cormo.neulbeot.R
+import com.cormo.neulbeot.page.exercise.ExEndActivity
 
 class JJukaActivity : ComponentActivity() {
 
     private lateinit var previewView: PreviewView
-    private lateinit var JJukaOverlay: JJukaOverlay
-    private val JJukaAnalyzer = JJukaAnalyzer()
+    private lateinit var overlayView: JJukaOverlay
+    private val analyzer = JJukaAnalyzer()
 
-    // 스트레칭 상태 관리
     private val stretchState = StretchState()
 
     private val askCamera =
@@ -34,7 +35,7 @@ class JJukaActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.jjuka_layout)
         previewView = findViewById(R.id.previewView)
-        JJukaOverlay = findViewById(R.id.overlayView)
+        overlayView = findViewById(R.id.overlayView)
 
         val startDialog = findViewById<ConstraintLayout>(R.id.start_dialog)
         val btnStart = findViewById<TextView>(R.id.btn_start)
@@ -43,7 +44,6 @@ class JJukaActivity : ComponentActivity() {
             startDialog.visibility = View.GONE
         }
 
-        // 크롭 없이 원본 비율 맞춤
         previewView.scaleType = PreviewView.ScaleType.FIT_CENTER
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -79,21 +79,29 @@ class JJukaActivity : ComponentActivity() {
                             isFront = true
                         )
 
-                        JJukaAnalyzer.analyze(image, info) { result ->
-                            // =========== 스트레칭 상태 업데이트 ===========
-                            val phase = StretchEvaluator.evaluate(result.landmarks)
-                            stretchState.updatePhase(phase, System.currentTimeMillis())
+                        analyzer.analyze(image, info) { result ->
 
-                            // 게이지 업데이트
-                            JJukaOverlay.setStretchGauge(
+                            val detected = StretchEvaluator.detectPhase(result.landmarks)
+                            stretchState.update(detected, System.currentTimeMillis())
+
+                            overlayView.setStretchGauge(
                                 stretchState.progress(),
                                 stretchState.phase.name
                             )
 
-                            // 랜드마크 업데이트
-                            JJukaOverlay.update(result, info)
+                            overlayView.setInstruction(stretchState.nextInstruction())
+
+                            overlayView.update(result, info)
+
+                            if(stretchState.phase == StretchState.StretchPhase.FINISHED){
+                                Toast.makeText(this, "잘했어 굿굿", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, ExEndActivity::class.java))
+                                stretchState.phase = StretchState.StretchPhase.END
+                                finish()
+                            }
                         }
                     }
+
                 }
 
             val front = CameraSelector.Builder()

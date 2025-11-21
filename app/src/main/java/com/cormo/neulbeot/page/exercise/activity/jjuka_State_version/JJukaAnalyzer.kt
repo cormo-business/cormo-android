@@ -67,7 +67,6 @@ class JJukaAnalyzer(
                     PoseLandmark.LEFT_FOOT_INDEX, PoseLandmark.RIGHT_FOOT_INDEX
                 )
 
-                // ✅ 회전 적용된 크기로 정규화
                 val rotatedW = if (frameInfo.rotation % 180 == 0)
                     frameInfo.width.toFloat() else frameInfo.height.toFloat()
                 val rotatedH = if (frameInfo.rotation % 180 == 0)
@@ -81,7 +80,7 @@ class JJukaAnalyzer(
                     val lm = pose.getPoseLandmark(t) ?: continue
                     var xn = lm.position.x / rotatedW
                     val yn = lm.position.y / rotatedH
-                    // if (frameInfo.isFront && mirrorFrontPreview) xn = 1f - xn
+
                     val xClamped = xn.coerceIn(0f, 1f)
                     val yClamped = yn.coerceIn(0f, 1f)
                     landmarks += Landmark(xClamped, yClamped)

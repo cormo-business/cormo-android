@@ -12,7 +12,7 @@
         android:keepScreenOn="true" />
 
 
-    <com.cormo.neulbeot.page.exercise.activity.squart_version.SquartOverlayView
+    <com.cormo.neulbeot.page.exercise.activity.squart_version.SquartOverlay
         android:id="@+id/overlayView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

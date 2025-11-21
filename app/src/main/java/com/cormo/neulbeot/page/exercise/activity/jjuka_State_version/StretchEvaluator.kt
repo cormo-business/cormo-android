@@ -2,41 +2,28 @@ package com.cormo.neulbeot.page.exercise.activity.jjuka_State_version
 
 object StretchEvaluator {
 
-    /**
-     * landmarks = 0~1 normalized 좌표
-     * return = StretchState.Phase
-     */
-    fun evaluate(landmarks: List<Landmark>): StretchState.Phase {
-        if (landmarks.size < 29) return StretchState.Phase.NONE
+    fun detectPhase(landmarks: List<Landmark>): StretchState.StretchPhase {
 
-        val leftShoulder = landmarks[11]
-        val rightShoulder = landmarks[12]
-        val leftWrist = landmarks[15]
-        val rightWrist = landmarks[16]
-        val leftHip = landmarks[23]
-        val rightHip = landmarks[24]
+        if (landmarks.size < 29) return StretchState.StretchPhase.IDLE
 
-        // 몸 중간 x
-        val centerX = (leftHip.x + rightHip.x) / 2f
+        val ls = landmarks[11]
+        val rs = landmarks[12]
+        val lw = landmarks[15]
+        val rw = landmarks[16]
+        val lh = landmarks[23]
+        val rh = landmarks[24]
 
-        // ===== 0) 팔 위로 올리기 조건 =====
-        val handsUp =
-            leftWrist.y < leftShoulder.y &&
-                    rightWrist.y < rightShoulder.y
+        val centerX = (lh.x + rh.x) / 2f
 
-        if (!handsUp) return StretchState.Phase.NONE
+        val handsUp = lw.y < ls.y && rw.y < rs.y
+        if (!handsUp) return StretchState.StretchPhase.IDLE
 
-        // ===== 1) 좌측 사이드 스트레칭 =====
-        if (leftWrist.x < centerX - 0.05f) {
-            return StretchState.Phase.LEFT_STRETCH
-        }
+        if (lw.x < centerX - 0.05f)
+            return StretchState.StretchPhase.LEFT_HOLD
 
-        // ===== 2) 우측 사이드 스트레칭 =====
-        if (rightWrist.x > centerX + 0.05f) {
-            return StretchState.Phase.RIGHT_STRETCH
-        }
+        if (rw.x > centerX + 0.05f)
+            return StretchState.StretchPhase.RIGHT_HOLD
 
-        // 기본: 팔만 올린 상태
-        return StretchState.Phase.HANDS_UP
+        return StretchState.StretchPhase.HANDS_UP
     }
 }

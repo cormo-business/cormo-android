@@ -35,7 +35,7 @@ class ExEndFragment: Fragment(R.layout.activity_end_fragment) {
         val score = requireArguments().getInt("score", 0)
         
         // API 통신
-        vm.save(nickname, score)
+//        vm.save(nickname, score)
 
         vm.memberId.observe(viewLifecycleOwner){ memberId ->
             Toast.makeText(context, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()

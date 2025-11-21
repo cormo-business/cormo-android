@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.R
+import com.cormo.neulbeot.page.exercise.activity.sucess_version.CameraActivity
 
 class ExStartFragment: Fragment(R.layout.activity_start_fragment) {
 
@@ -17,9 +18,20 @@ class ExStartFragment: Fragment(R.layout.activity_start_fragment) {
         view.findViewById<TextView>(R.id.bottom_bar_bg)
         val btnStartOK = view.findViewById<TextView>(R.id.btn_start_ok)
         val btnDone = view.findViewById<ImageView>(R.id.btn_done)
+        val btnStartEnd = view.findViewById<ImageView>(R.id.start_end)
         val txtNoti = view.findViewById<TextView>(R.id.txt_noti)
         val person = view.findViewById<ImageView>(R.id.person)
         val startImg = view.findViewById<ConstraintLayout>(R.id.start_img)
+
+        btnStartEnd.setOnClickListener {
+            // 1) 스택에서 빼기
+            parentFragmentManager.popBackStack()
+//            // 2) 다시 FirstFragment를 replace로 올리기 (새로 생성)
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.estimation_1st, CameraActivity())
+//                .commit()
+            startActivity(Intent(context, CameraActivity::class.java))
+        }
 
         btnStartOK.setOnClickListener { it ->
             startImg.visibility = View.GONE // 숨김

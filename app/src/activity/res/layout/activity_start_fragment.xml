@@ -66,6 +66,7 @@
             />
         
         <ImageView
+            android:id="@+id/start_end"
             android:layout_marginStart="27dp"
             app:layout_constraintBottom_toBottomOf="@id/space_bottom"
             app:layout_constraintTop_toTopOf="@id/space_bottom"

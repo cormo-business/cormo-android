@@ -43,7 +43,7 @@
         <TextView
             android:layout_marginTop="150dp"
             android:gravity="center"
-            android:id="@+id/game_start"
+            android:id="@+id/game_start1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="50sp"

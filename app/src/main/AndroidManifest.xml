@@ -62,6 +62,9 @@
 
         <!-- 운동 화면-->
         <activity android:name=".page.exercise.ExActivity"/>
+        <activity android:name=".page.exercise.activity.sucess_version.CameraActivity"/>
+        <activity android:name=".page.exercise.activity.squart_version.SquartActivity"/>
+        <activity android:name=".page.exercise.activity.jjuka_State_version.JJukaActivity"/>
 
         <!-- Firebase Messaging Service 등록 -->
         <service

@@ -37,16 +37,33 @@ class ExerciseViewModel(app: Application) : AndroidViewModel(app) {
                 result.onSuccess { b ->
                     // 성공시 일어날 일
                     _memberId.value = b.memberId
-                    Log.d(TAG, "HomeModel - initHome() 성공 called")
+                    Log.d(TAG, "ExerciseViewModel - saveJJuka() 성공 called")
 
                 }.onFailure { e ->
-                    Log.d(TAG, "HomeModel - initHome() 실패 ${e.message} called")
+                    Log.d(TAG, "ExerciseViewModel - saveJJuka() 실패 ${e.message} called")
                 }
             }
         }
     }
 
     fun saveSquart() {
-        TODO("Not yet implemented")
-    }
+        val userId = TokenStorage(getApplication()).getUserId() ?: -1
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            var result = repo.saveRecord(
+                request = SaveRecordRequest(userId)
+            )
+
+            withContext(Dispatchers.Main) {
+                result.onSuccess { b ->
+                    // 성공시 일어날 일
+                    _memberId.value = b.memberId
+                    Log.d(TAG, "ExerciseViewModel - saveSquart() 성공 called")
+
+                }.onFailure { e ->
+                    Log.d(TAG, "ExerciseViewModel - saveSquart() 실패 ${e.message} called")
+                }
+            }
+        }    }
 }

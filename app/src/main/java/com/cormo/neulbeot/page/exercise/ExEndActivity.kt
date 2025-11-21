@@ -1,6 +1,7 @@
 package com.cormo.neulbeot.page.exercise
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ class ExEndActivity: AppCompatActivity(){
 
         val btnBackHome = findViewById<TextView>(R.id.btn_back_home)
         val btnFeedBack = findViewById<TextView>(R.id.btn_go_feedback)
+        val txtActivityName = findViewById<TextView>(R.id.activity_name)
 
         btnFeedBack.setOnClickListener {
             Toast.makeText(this, "잘했어 굿굿", Toast.LENGTH_SHORT).show()
@@ -30,6 +32,9 @@ class ExEndActivity: AppCompatActivity(){
         }
 
         val stringExtra = intent.getStringExtra("activity")
+        txtActivityName.text = stringExtra+" 운동"
+
+        Log.d("로그","운동 완료${stringExtra}")
         Toast.makeText(this, "${stringExtra} 운동 완료", Toast.LENGTH_SHORT).show()
         if(stringExtra == "jjuka"){
             // API 통신
@@ -40,9 +45,9 @@ class ExEndActivity: AppCompatActivity(){
             
         }
 
-        vm.memberId.observe(this){ memberId ->
-            Toast.makeText(this, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
-        }
+//        vm.memberId.observe(this){ memberId ->
+//            Toast.makeText(this, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
+//        }
     }
 
 }

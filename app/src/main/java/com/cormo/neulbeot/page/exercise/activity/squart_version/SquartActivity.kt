@@ -1,6 +1,7 @@
 package com.cormo.neulbeot.page.exercise.activity.squart_version
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Surface
@@ -14,13 +15,14 @@ import androidx.camera.view.PreviewView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.cormo.neulbeot.R
+import com.cormo.neulbeot.page.exercise.ExEndActivity
 
 class SquartActivity : ComponentActivity() {
 
     private lateinit var previewView: PreviewView
     private lateinit var overlayView: SquartOverlay
     private val analyzer = SquartAnalyzer()
-    private val squatCounter = SquatCounter()
+    private val squartCounter = SquartCounter()
 
     private val ask =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
@@ -77,14 +79,21 @@ class SquartActivity : ComponentActivity() {
                         analyzer.analyze(image, info) { result ->
 
                             // 스쿼트 카운팅
-                            squatCounter.update(result.landmarks)
+                            squartCounter.update(result.landmarks)
 
                             // OverlayView 업데이트
                             overlayView.update(
                                 result,
                                 info,
-                                squatCounter.count
+                                squartCounter.count
                             )
+
+                            if(squartCounter.count == 10){
+                                startActivity(Intent(this, ExEndActivity::class.java)
+                                    .putExtra("activity","squart"))
+                                finish()
+                                squartCounter.reset()
+                            }
                         }
                     }
                 }

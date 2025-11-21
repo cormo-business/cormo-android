@@ -111,31 +111,35 @@ class StretchState {
             return "스트레칭 완료!"
         }
 
-        // 2) 아직 팔 위로 들기 안 했을 때 (handsUpDone == false)
-        if (!handsUpDone) {
-            return when (phase) {
-                StretchPhase.HANDS_UP -> "팔을 위로 든 상태로 2초 유지하세요"
-                else -> "먼저 팔을 머리 위로 올려볼까요?"
+        // 2) 지금 하고 있는 포즈에 맞는 안내를 먼저 준다
+        when (phase) {
+            StretchPhase.HANDS_UP -> {
+                return if (!handsUpDone) {
+                    "팔을 위로 든 상태로 2초 유지하세요"
+                } else {
+                    "이제 다른 방향으로 움직여 볼까요?"
+                }
             }
+            StretchPhase.RIGHT_HOLD -> {
+                if (!rightDone) {
+                    return "왼쪽으로 기울인 자세를 2초 유지하세요"
+                }
+            }
+            StretchPhase.LEFT_HOLD -> {
+                if (!leftDone) {
+                    return "오른쪽으로 기울인 자세를 2초 유지하세요"
+                }
+            }
+            else -> { /* IDLE, END 등은 밑에서 처리 */ }
         }
 
-        // 3) 팔 끝났으면, 오른쪽 스트레칭 가이드 (rightDone == false)
-        if (!rightDone) {
-            return when (phase) {
-                StretchPhase.RIGHT_HOLD -> "오른쪽으로 기울인 자세를 2초 유지하세요"
-                else -> "이번에는 오른쪽으로 몸을 기울여 볼까요?"
-            }
+        // 3) 지금은 중립 상태거나, 이미 끝난 포즈 → '추천 순서' 기반 가이드
+        return when {
+            !handsUpDone -> "먼저 팔을 머리 위로 올려볼까요?"
+            !rightDone -> "이번에는 왼쪽으로 몸을 기울여 볼까요?"
+            !leftDone -> "마지막으로 오른쪽으로 몸을 기울여 볼까요?"
+            else -> "조금만 더! 편하게 자세를 유지해 주세요."
         }
-
-        // 4) 오른쪽까지 했으면, 왼쪽 스트레칭 가이드 (leftDone == false)
-        if (!leftDone) {
-            return when (phase) {
-                StretchPhase.LEFT_HOLD -> "왼쪽으로 기울인 자세를 2초 유지하세요"
-                else -> "마지막으로 왼쪽으로 몸을 기울여 볼까요?"
-            }
-        }
-
-        // 여기까지 오면 거의 FINISHED 직전 상태
-        return "조금만 더! 자세를 유지해 주세요."
     }
+
 }

@@ -22,7 +22,7 @@ class ExerciseRepository(
             val body = res.body()
             if (res.isSuccessful && body != null) {
                 // 정상 응답
-                Log.d("로그", "저장완료 닉네임?: ${body.memberId}")
+                Log.d("로그", "저장완료 기록 ID: ${body.recordId}")
 
                 Result.success(body)
             } else {

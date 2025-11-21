@@ -34,20 +34,15 @@ class ExEndActivity: AppCompatActivity(){
         val stringExtra = intent.getStringExtra("activity")
         txtActivityName.text = stringExtra+" 운동"
 
-        Log.d("로그","운동 완료${stringExtra}")
+        Log.d("로그","운동 완료 ${stringExtra}")
         Toast.makeText(this, "${stringExtra} 운동 완료", Toast.LENGTH_SHORT).show()
-        if(stringExtra == "jjuka"){
-            // API 통신
-            vm.saveJJuka()
-        }else if(stringExtra == "squart"){
-            vm.saveSquart()
-        }else{
-            
+        vm.saveRecord(stringExtra.toString())
+
         }
 
 //        vm.memberId.observe(this){ memberId ->
 //            Toast.makeText(this, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
 //        }
-    }
+
 
 }

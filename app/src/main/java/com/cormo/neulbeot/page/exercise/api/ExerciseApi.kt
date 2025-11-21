@@ -5,13 +5,13 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ExerciseApi {
-    @POST("/api/test")
+    @POST("/api/record/save")
     suspend fun saveRecord(@Body body: SaveRecordRequest): Response<SaveRecordResponse>
 
 }
 
 data class SaveRecordRequest (
-    val userId: Long,
+    val exerciseName: String,
 //    val memberId: Long,
 //    val weight: Integer,
 //    val repeatNumber: Integer,
@@ -21,6 +21,6 @@ data class SaveRecordRequest (
     )
 
 data class SaveRecordResponse (
-    val memberId: Long,
+    val recordId: Long,
 
-)
+    )

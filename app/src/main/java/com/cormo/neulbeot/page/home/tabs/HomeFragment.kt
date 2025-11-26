@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.WithFriendsActivity
@@ -30,7 +31,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.home_fragment_home, container, false)
+        return inflater.inflate(R.layout.home, container, false)
     }
 
     // View가 완성된 뒤 호출되는 단계
@@ -45,30 +46,27 @@ class HomeFragment : Fragment() {
         val btnToday = v.findViewById<Button>(R.id.btnTodayWorkout)
         val btnFriends = v.findViewById<Button>(R.id.btnWithFriends)
         val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
-        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
+//        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
 
         vm.initHome()
 
-        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
-            val cal = Calendar.getInstance()
-            val currentMonth = cal.get(Calendar.MONTH) + 1 // 0부터 시작하므로 +1
-
-            tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
-            
-            // vm 인식 이후에 처리하기 위하여
-            sendFcmTokenAfterLogin(requireContext())
-            
-
-        }
+//        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
+//            val cal = Calendar.getInstance()
+//            val currentMonth = cal.get(Calendar.MONTH) + 1 // 0부터 시작하므로 +1
+//
+//            tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
+//        }
 
         vm.nickname.observe(viewLifecycleOwner) { name ->
-            tvTitle.text = "${name}님,\n에너지 코인을 모아보세요"
+            // vm 인식 이후에 처리하기 위하여
+            sendFcmTokenAfterLogin(requireContext())
+            tvTitle.text = "${name}님,"
         }
 
         fun render() {
             val level = vm.level.value ?: 0
             val p = vm.levelProgress.value ?: 0
-            tvLevel.text = "Lv.$level  다음 승급까지 $p"
+            tvLevel.text = "Lv.$level"
             var total = 100+50*(level-1)
             progress.progress = (total - p) * 100 / total
         }
@@ -77,8 +75,9 @@ class HomeFragment : Fragment() {
         vm.levelProgress.observe(viewLifecycleOwner) { render() }
 
         vm.point.observe(viewLifecycleOwner) { pt ->
-            tvCoin.text = pt.toString()
+            tvCoin.text = pt.toString() + "point"
         }
+
         vm.profilePath.observe(viewLifecycleOwner) { path ->
             if (!path.isNullOrBlank()) {
                 runCatching { ivProfile.setImageURI(Uri.parse(path)) }
@@ -88,10 +87,13 @@ class HomeFragment : Fragment() {
         }
 
         btnToday.setOnClickListener {
-            startActivity(Intent(requireContext(), WeekChallengeActivity::class.java))
+//            startActivity(Intent(requireContext(), WeekChallengeActivity::class.java))
+            Toast.makeText(context, "잠시만 기달려 주세요", Toast.LENGTH_SHORT).show()
+
         }
         btnFriends.setOnClickListener {
-            startActivity(Intent(requireContext(), WithFriendsActivity::class.java))
+//            startActivity(Intent(requireContext(), WithFriendsActivity::class.java))
+            Toast.makeText(context, "잠시만 기달려 주세요", Toast.LENGTH_SHORT).show()
         }
 
         //출석 카드
@@ -102,19 +104,5 @@ class HomeFragment : Fragment() {
 //            startActivity(Intent(requireContext(), AttendanceCheckActivity::class.java))
         }
 
-        // ===== 챌린지/모임 카드 클릭(샘플) =====
-        v.findViewById<LinearLayout>(R.id.cardWeeklyChallenge)
-            .setOnClickListener { startActivity(Intent(requireContext(), WeekChallengeActivity::class.java)) }
-        v.findViewById<LinearLayout>(R.id.cardMyGroup)
-            .setOnClickListener { /* TODO: 모임 화면으로 */ }
-
-        // ===== 리포트/기록 카드 클릭(샘플) =====
-        v.findViewById<LinearLayout>(R.id.cardReport).setOnClickListener { /* TODO */ }
-        v.findViewById<LinearLayout>(R.id.cardHistory).setOnClickListener { /* TODO */ }
-
-        // ===== 커뮤니티 카드 클릭(샘플) =====
-        v.findViewById<LinearLayout>(R.id.cardNotice).setOnClickListener { /* TODO */ }
-        v.findViewById<LinearLayout>(R.id.cardBoard).setOnClickListener { /* TODO */ }
-        v.findViewById<LinearLayout>(R.id.cardInvite).setOnClickListener { /* TODO */ }
     }
 }

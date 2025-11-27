@@ -17,14 +17,18 @@ import com.cormo.neulbeot.page.exercise.WeekChallengeActivity
 import com.cormo.neulbeot.page.home.vm.HomeModel
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
+import com.cormo.neulbeot.auth.AuthRepository
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
 import com.cormo.neulbeot.page.home.HomeActivity
+import com.cormo.neulbeot.page.home.api.HomeRepository
 import com.cormo.neulbeot.page.login.LoginMethodActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.w3c.dom.Text
 import java.util.Calendar
 
 class HomeFragment : Fragment() {
     private val vm: HomeModel by activityViewModels()
+    private val repository by lazy { AuthRepository(requireContext()) }
 
     // View를 만드는 단계
     override fun onCreateView(
@@ -48,7 +52,10 @@ class HomeFragment : Fragment() {
         val btnFriends = v.findViewById<TextView>(R.id.btnWithFriends)
 //        val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
 //        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
-
+        val btnMore = v.findViewById<ImageView>(R.id.btn_more)
+        btnMore.setOnClickListener {
+            showMoreMenu()
+        }
         vm.initHome()
 
 //        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
@@ -106,4 +113,35 @@ class HomeFragment : Fragment() {
         }
 
     }
+
+    private fun showMoreMenu() {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.dialog_more_menu, null)
+        dialog.setContentView(view)
+
+
+        val btnLogout = view.findViewById<TextView>(R.id.btnLogout)
+        // 로그인 화면 등 다른 메뉴 생기면 여기서도 findViewById 해서 추가
+
+        btnLogout.setOnClickListener {
+            // TODO: 실제 로그아웃 로직
+            // 예시:
+            // TokenStorage.clear(requireContext())
+            // vm.clearUserState() 등
+            repository.logout()
+            val intent = Intent(requireContext(), LoginMethodActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_NEW_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            activity?.finishAffinity()
+
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
 }

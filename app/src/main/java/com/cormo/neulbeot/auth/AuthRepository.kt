@@ -24,7 +24,7 @@ class AuthRepository(private val context: Context) {
         }
     }
 
-    suspend fun logout() {
+    fun logout() {
         storage.clearTokens()
     }
 

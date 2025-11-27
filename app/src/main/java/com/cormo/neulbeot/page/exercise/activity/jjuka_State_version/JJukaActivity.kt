@@ -39,6 +39,11 @@ class JJukaActivity : ComponentActivity() {
 
         val startDialog = findViewById<ConstraintLayout>(R.id.start_dialog)
         val btnStart = findViewById<TextView>(R.id.btn_start)
+        val btnExit = findViewById<TextView>(R.id.btn_exit)
+
+        btnExit.setOnClickListener {
+            finish()
+        }
 
         btnStart.setOnClickListener {
             startDialog.visibility = View.GONE

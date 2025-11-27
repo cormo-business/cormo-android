@@ -35,22 +35,22 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
         val tvRate = v.findViewById<TextView>(R.id.tvRate)
         val tvDone = v.findViewById<TextView>(R.id.tvDone)
 
-        val monday = v.findViewById<TextView>(R.id.monday)
-        val tuesday = v.findViewById<TextView>(R.id.tuesday)
-        val wednesday = v.findViewById<TextView>(R.id.wednesday)
-        val thursday = v.findViewById<TextView>(R.id.thursday)
-        val friday = v.findViewById<TextView>(R.id.friday)
-        val saturday = v.findViewById<TextView>(R.id.saturday)
-        val sunday = v.findViewById<TextView>(R.id.sunday)
-        val dayViews = listOf(
-            monday,
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            saturday,
-            sunday
-        )
+//        val monday = v.findViewById<TextView>(R.id.monday)
+//        val tuesday = v.findViewById<TextView>(R.id.tuesday)
+//        val wednesday = v.findViewById<TextView>(R.id.wednesday)
+//        val thursday = v.findViewById<TextView>(R.id.thursday)
+//        val friday = v.findViewById<TextView>(R.id.friday)
+//        val saturday = v.findViewById<TextView>(R.id.saturday)
+//        val sunday = v.findViewById<TextView>(R.id.sunday)
+//        val dayViews = listOf(
+//            monday,
+//            tuesday,
+//            wednesday,
+//            thursday,
+//            friday,
+//            saturday,
+//            sunday
+//        )
         // 7일 연속으로 운동....todo
 
         vm.levelProgress.observe(viewLifecycleOwner){

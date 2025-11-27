@@ -94,6 +94,8 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                         // 성공 모달 띄우기
                         // 로컬 스토리지 저장하기
                         Toast.makeText(getApplication(), "출석 성공", Toast.LENGTH_SHORT).show()
+                        initHome()
+
                     }.onFailure {
                         // 이미 출석했다고 띄우기
                         Toast.makeText(getApplication(), "이미 출석했습니다ㅠㅠ", Toast.LENGTH_SHORT).show()
@@ -101,6 +103,6 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                 }
             }
         }
-        initHome()
+
     }
 }

@@ -28,17 +28,52 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
         val weeklyChallengeCard = v.findViewById<View>(R.id.WeeklyChallengeCard)
         val btnClose = v.findViewById<ImageView>(R.id.btn_close)
         val btnMore = v.findViewById<ImageView>(R.id.btn_plus)
-        val profress = v.findViewById<ProgressBar>(R.id.progressToday)
+        val progressEXP = v.findViewById<ProgressBar>(R.id.progressToday)
         val energyCoin = v.findViewById<TextView>(R.id.energy_coin)
         val myLevel = v.findViewById<TextView>(R.id.my_level)
+        val progressExerciseNum = v.findViewById<ProgressBar>(R.id.progress_today_exercise_num)
+        val tvRate = v.findViewById<TextView>(R.id.tvRate)
+        val tvDone = v.findViewById<TextView>(R.id.tvDone)
+
+        val monday = v.findViewById<TextView>(R.id.monday)
+        val tuesday = v.findViewById<TextView>(R.id.tuesday)
+        val wednesday = v.findViewById<TextView>(R.id.wednesday)
+        val thursday = v.findViewById<TextView>(R.id.thursday)
+        val friday = v.findViewById<TextView>(R.id.friday)
+        val saturday = v.findViewById<TextView>(R.id.saturday)
+        val sunday = v.findViewById<TextView>(R.id.sunday)
+        val dayViews = listOf(
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday
+        )
+        // 7일 연속으로 운동....todo
 
         vm.levelProgress.observe(viewLifecycleOwner){
             val level = vm.level.value ?: 0
             val p = vm.levelProgress.value ?: 0
             var total = 100+50*(level-1)
             myLevel.text = "LV.${level}"
-            profress.progress = (total - p) * 100 / total
+            progressEXP.progress = (total - p) * 100 / total
             energyCoin.text = "${total-p}/${total}"
+
+        }
+
+        vm.todayRecordNum.observe(viewLifecycleOwner){ num ->
+            var rate = 0
+            if(num >= 4){
+                rate = 100
+                tvDone.text = "오늘의 미션 완료"
+            }else{
+                rate = num * 25
+                tvDone.text = "${num}/4 완료"
+            }
+            progressExerciseNum.progress = rate
+            tvRate.text = "진행률 ${rate}%"
 
         }
 

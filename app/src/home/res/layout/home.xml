@@ -171,7 +171,7 @@
                 android:textSize="12sp"
                 android:textColor="#4D000000"
                 android:id="@+id/tvCoin"
-                android:text="500point"
+                android:text="500exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

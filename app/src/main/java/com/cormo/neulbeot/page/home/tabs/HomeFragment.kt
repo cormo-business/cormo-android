@@ -56,6 +56,8 @@ class HomeFragment : Fragment() {
         btnMore.setOnClickListener {
             showMoreMenu()
         }
+
+
         vm.initHome()
 
 //        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
@@ -82,8 +84,8 @@ class HomeFragment : Fragment() {
         vm.level.observe(viewLifecycleOwner) { render() }
         vm.levelProgress.observe(viewLifecycleOwner) { render() }
 
-        vm.point.observe(viewLifecycleOwner) { pt ->
-            tvCoin.text = pt.toString() + "point"
+        vm.levelProgress.observe(viewLifecycleOwner) { exp ->
+            tvCoin.text = exp.toString() + "exp"
         }
 
 //        vm.profilePath.observe(viewLifecycleOwner) { path ->

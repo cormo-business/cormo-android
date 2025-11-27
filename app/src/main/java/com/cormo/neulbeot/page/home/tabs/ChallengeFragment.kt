@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.ExActivity
 import com.cormo.neulbeot.page.exercise.activity.jjuka_State_version.JJukaActivity
 import com.cormo.neulbeot.page.exercise.activity.squart_version.SquartActivity
+import com.cormo.neulbeot.page.home.vm.HomeModel
+import kotlin.getValue
 
 class ChallengeFragment : Fragment(R.layout.challenge_page) {
+
+    private val vm: HomeModel by activityViewModels()
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
@@ -23,6 +28,19 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
         val weeklyChallengeCard = v.findViewById<View>(R.id.WeeklyChallengeCard)
         val btnClose = v.findViewById<ImageView>(R.id.btn_close)
         val btnMore = v.findViewById<ImageView>(R.id.btn_plus)
+        val profress = v.findViewById<ProgressBar>(R.id.progressToday)
+        val energyCoin = v.findViewById<TextView>(R.id.energy_coin)
+        val myLevel = v.findViewById<TextView>(R.id.my_level)
+
+        vm.levelProgress.observe(viewLifecycleOwner){
+            val level = vm.level.value ?: 0
+            val p = vm.levelProgress.value ?: 0
+            var total = 100+50*(level-1)
+            myLevel.text = "LV.${level}"
+            profress.progress = (total - p) * 100 / total
+            energyCoin.text = "${total-p}/${total}"
+
+        }
 
         btnGameStart1.setOnClickListener {
 //            startActivity(Intent(context, CameraActivity1st::class.java))

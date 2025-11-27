@@ -2,34 +2,25 @@ package com.cormo.neulbeot.page.home.tabs
 
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.cormo.neulbeot.R
-import com.cormo.neulbeot.page.exercise.WithFriendsActivity
-import com.cormo.neulbeot.page.exercise.WeekChallengeActivity
-import com.cormo.neulbeot.page.home.vm.HomeModel
+import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.auth.AuthRepository
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
-import com.cormo.neulbeot.page.home.HomeActivity
-import com.cormo.neulbeot.page.home.api.HomeRepository
 import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import org.w3c.dom.Text
 import java.time.LocalDate
-import java.util.Calendar
 
 class HomeFragment : Fragment() {
-    private val vm: HomeModel by activityViewModels()
+    private val vm: HomeViewModel by activityViewModels()
     private val repository by lazy { AuthRepository(requireContext()) }
 
     // View를 만드는 단계

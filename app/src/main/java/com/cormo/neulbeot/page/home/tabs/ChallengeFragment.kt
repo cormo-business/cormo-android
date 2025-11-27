@@ -10,12 +10,12 @@ import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.ExActivity
 import com.cormo.neulbeot.page.exercise.activity.jjuka_State_version.JJukaActivity
 import com.cormo.neulbeot.page.exercise.activity.squart_version.SquartActivity
-import com.cormo.neulbeot.page.home.vm.HomeModel
+import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlin.getValue
 
 class ChallengeFragment : Fragment(R.layout.challenge_page) {
 
-    private val vm: HomeModel by activityViewModels()
+    private val vm: HomeViewModel by activityViewModels()
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)

@@ -15,14 +15,14 @@ import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.home.tabs.*
 import com.cormo.neulbeot.core.widget.HomeBottomBarView
 import com.cormo.neulbeot.page.exercise.ExActivity
-import com.cormo.neulbeot.page.home.vm.HomeModel
+import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class HomeActivity : AppCompatActivity() {
 
-    private val vm: HomeModel by viewModels()
+    private val vm: HomeViewModel by viewModels()
 
     private lateinit var pager: ViewPager2
     private lateinit var bottomBar: HomeBottomBarView
@@ -93,6 +93,12 @@ class HomeActivity : AppCompatActivity() {
                 vm.initHome()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 다른 화면 갔다가 다시 돌아올 때마다 호출됨
+        vm.initHome()
     }
 
 }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeModel(app: Application) : AndroidViewModel(app) {
+class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
     val TAG: String = "로그"
     private val repo = HomeRepository(app)

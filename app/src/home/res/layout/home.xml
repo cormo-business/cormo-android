@@ -292,6 +292,7 @@
                     android:layout_height="wrap_content"
                     android:text="월"/>
                 <TextView
+                    android:id="@+id/monday"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -318,6 +319,7 @@
                     android:layout_height="wrap_content"
                     android:text="화"/>
                 <TextView
+                    android:id="@+id/tuesday"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#5D5D5D"
@@ -344,6 +346,7 @@
                     android:layout_height="wrap_content"
                     android:text="수"/>
                 <TextView
+                    android:id="@+id/wednesday"
                     android:textColor="#5D5D5D"
                     android:textStyle="bold"
                     android:textSize="14sp"
@@ -371,6 +374,7 @@
                     android:layout_height="wrap_content"
                     android:text="목"/>
                 <TextView
+                    android:id="@+id/thursday"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:textColor="#5D5D5D"
@@ -398,6 +402,7 @@
                     android:layout_height="wrap_content"
                     android:text="금"/>
                 <TextView
+                    android:id="@+id/friday"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -425,6 +430,7 @@
                     android:layout_height="wrap_content"
                     android:text="토"/>
                 <TextView
+                    android:id="@+id/saturday"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp"
@@ -451,6 +457,7 @@
                     android:layout_height="wrap_content"
                     android:text="일"/>
                 <TextView
+                    android:id="@+id/sunday"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp"

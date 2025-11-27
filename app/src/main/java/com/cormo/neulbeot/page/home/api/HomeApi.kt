@@ -20,5 +20,13 @@ data class HomeInitResponse (
     val attendanceNum: Int,
     val profilePath: String,
     val userId: Long,
-    val checkAttendance: Boolean
+    val checkAttendance: Boolean,
+    val continuousAttendance: Int,
+    val weekAttendance: List<TodayAttendanceCheckDto>
+)
+
+data class TodayAttendanceCheckDto(
+    val dayOfWeek: String,
+    val day: Int,
+    val check: Boolean
 )

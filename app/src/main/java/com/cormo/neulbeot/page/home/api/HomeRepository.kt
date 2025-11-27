@@ -14,7 +14,7 @@ class HomeRepository(
     private val api: HomeApi =
         ApiClient.retrofit(context.applicationContext).create(HomeApi::class.java)
 
-    suspend fun initHome(): Result<HomeInitResponse> {
+    suspend fun initHomeRepository(): Result<HomeInitResponse> {
         return try {
             val res = api.init()
             val body = res.body()

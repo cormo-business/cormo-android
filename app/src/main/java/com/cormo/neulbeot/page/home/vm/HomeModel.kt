@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cormo.neulbeot.page.home.api.HomeRepository
+import com.cormo.neulbeot.page.home.api.TodayAttendanceCheckDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,12 +39,17 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
 
     private val _errorToken = MutableLiveData<String?>()
     val errorToken: LiveData<String?> = _errorToken
-    
+
+    private val _weekAttendance = MutableLiveData<List<TodayAttendanceCheckDto>>()
+    val weekAttendance = _weekAttendance
+
+    private val _continuousAttendance = MutableLiveData<Int>()
+    val continuousAttendance = _continuousAttendance
 
     fun initHome() {
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repo.initHome()
+            val result = repo.initHomeRepository()
             Log.d("로그", result.toString())
             if(result != null){
                 withContext(Dispatchers.Main) {
@@ -54,6 +60,8 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
                         _attendanceNum.value = b.attendanceNum
                         _profilePath.value = b.profilePath
                         _levelProgress.value = b.levelProgress
+                        _weekAttendance.value = b.weekAttendance
+                        _continuousAttendance.value = b.continuousAttendance
                     }.onFailure { e ->
                         _errorToken.value = "초기화 실패: ${e.message ?: "unknown"}"
                         Log.d(TAG, "HomeModel - initHome()${e.message} called")

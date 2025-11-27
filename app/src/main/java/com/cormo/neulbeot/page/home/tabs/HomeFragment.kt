@@ -1,6 +1,7 @@
 package com.cormo.neulbeot.page.home.tabs
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -24,6 +25,7 @@ import com.cormo.neulbeot.page.home.api.HomeRepository
 import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.w3c.dom.Text
+import java.time.LocalDate
 import java.util.Calendar
 
 class HomeFragment : Fragment() {
@@ -50,22 +52,64 @@ class HomeFragment : Fragment() {
         val progress = v.findViewById<ProgressBar>(R.id.levelProgress)
         val btnToday = v.findViewById<TextView>(R.id.btnTodayWorkout)
         val btnFriends = v.findViewById<TextView>(R.id.btnWithFriends)
-//        val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
-//        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
         val btnMore = v.findViewById<ImageView>(R.id.btn_more)
+
+        val monday = v.findViewById<TextView>(R.id.monday)
+        val tuesday = v.findViewById<TextView>(R.id.tuesday)
+        val wednesday = v.findViewById<TextView>(R.id.wednesday)
+        val thursday = v.findViewById<TextView>(R.id.thursday)
+        val friday = v.findViewById<TextView>(R.id.friday)
+        val saturday = v.findViewById<TextView>(R.id.saturday)
+        val sunday = v.findViewById<TextView>(R.id.sunday)
+        val dayViews = listOf(
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday
+        )
+
         btnMore.setOnClickListener {
             showMoreMenu()
         }
 
-
         vm.initHome()
+        vm.weekAttendance.observe(viewLifecycleOwner) { list ->
 
-//        vm.attendanceNum.observe(viewLifecycleOwner){ num ->
-//            val cal = Calendar.getInstance()
-//            val currentMonth = cal.get(Calendar.MONTH) + 1 // 0부터 시작하므로 +1
-//
-//            tvAttendance.text = "${currentMonth}월에 ${num}회 출석했습니다"
-//        }
+            val todayDay = LocalDate.now().dayOfMonth
+
+            for (i in list.indices) {
+                val item = list[i]
+                val textView = dayViews[i]
+
+                textView.text = item.day.toString()
+
+                when {
+                    // 1) 오늘 이전 + 출석 O
+                    item.check -> {
+                        textView.setBackgroundResource(R.drawable.bg_dark_blue_oval)
+                        textView.setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+
+                    // 2) 오늘 이전 + 출석 X
+                    item.day <= todayDay -> {
+                        textView.setBackgroundResource(R.drawable.bg_blue_oval)
+                        textView.setTextColor(Color.parseColor("#5D5D5D"))
+                    }
+
+                    // 오늘 이후
+                    item.day > todayDay -> {
+                        textView.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                        textView.setTextColor(Color.parseColor("#5D5D5D"))
+                    }
+
+                }
+            }
+        }
+
+
 
         vm.nickname.observe(viewLifecycleOwner) { name ->
             // vm 인식 이후에 처리하기 위하여
@@ -85,7 +129,7 @@ class HomeFragment : Fragment() {
         vm.levelProgress.observe(viewLifecycleOwner) { render() }
 
         vm.levelProgress.observe(viewLifecycleOwner) { exp ->
-            tvCoin.text = exp.toString() + "exp"
+            tvCoin.text = exp.toString() + "EXP"
         }
 
 //        vm.profilePath.observe(viewLifecycleOwner) { path ->

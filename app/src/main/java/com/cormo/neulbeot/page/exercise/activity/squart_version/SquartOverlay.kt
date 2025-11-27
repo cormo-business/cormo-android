@@ -38,8 +38,8 @@ class SquartOverlay(context: Context, attrs: AttributeSet? = null) : View(contex
         }
 
         private val paintText = Paint().apply {
-            color = Color.YELLOW
-            textSize = 70f
+            color = Color.BLACK
+            textSize = 170f
             style = Paint.Style.FILL
             isAntiAlias = true
         }

@@ -1,7 +1,7 @@
 package com.cormo.neulbeot.page.exercise.activity.squart_version
 
 class SquartCounter(
-    private val threshold: Float = 0.04f // 엉덩이-무릎 높이 차 허용치
+    private val threshold: Float = 0.004f // 엉덩이-무릎 높이 차 허용치
 ) {
     enum class State {
         UP, DOWN

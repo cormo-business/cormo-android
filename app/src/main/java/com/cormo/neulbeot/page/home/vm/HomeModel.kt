@@ -64,6 +64,7 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    // 출석 체크 로직
     fun attendance(){
         val authPrefs = getApplication<Application>().getSharedPreferences("auth", Context.MODE_PRIVATE)
         val checkAttendance = authPrefs.getBoolean("attendance", false)

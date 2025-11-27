@@ -20,6 +20,7 @@ import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
 import com.cormo.neulbeot.page.home.HomeActivity
 import com.cormo.neulbeot.page.login.LoginMethodActivity
+import org.w3c.dom.Text
 import java.util.Calendar
 
 class HomeFragment : Fragment() {
@@ -43,9 +44,9 @@ class HomeFragment : Fragment() {
         val tvLevel = v.findViewById<TextView>(R.id.tvLevel)
         val tvCoin = v.findViewById<TextView>(R.id.tvCoin)
         val progress = v.findViewById<ProgressBar>(R.id.levelProgress)
-        val btnToday = v.findViewById<Button>(R.id.btnTodayWorkout)
-        val btnFriends = v.findViewById<Button>(R.id.btnWithFriends)
-        val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
+        val btnToday = v.findViewById<TextView>(R.id.btnTodayWorkout)
+        val btnFriends = v.findViewById<TextView>(R.id.btnWithFriends)
+//        val ivProfile = v.findViewById<ImageView>(R.id.ivProfile)
 //        val tvAttendance = v.findViewById<TextView>(R.id.tvAttendanceDesc)
 
         vm.initHome()
@@ -78,13 +79,13 @@ class HomeFragment : Fragment() {
             tvCoin.text = pt.toString() + "point"
         }
 
-        vm.profilePath.observe(viewLifecycleOwner) { path ->
-            if (!path.isNullOrBlank()) {
-                runCatching { ivProfile.setImageURI(Uri.parse(path)) }
-            } else {
-                ivProfile.setImageResource(R.drawable.ic_account_circle_96)
-            }
-        }
+//        vm.profilePath.observe(viewLifecycleOwner) { path ->
+//            if (!path.isNullOrBlank()) {
+//                runCatching { ivProfile.setImageURI(Uri.parse(path)) }
+//            } else {
+//                ivProfile.setImageResource(R.drawable.ic_account_circle_96)
+//            }
+//        }
 
         btnToday.setOnClickListener {
 //            startActivity(Intent(requireContext(), WeekChallengeActivity::class.java))
@@ -97,7 +98,7 @@ class HomeFragment : Fragment() {
         }
 
         //출석 카드
-        val btnAttendance = v.findViewById<Button>(R.id.btnAttendance)
+        val btnAttendance = v.findViewById<TextView>(R.id.btnAttendance)
         btnAttendance.setOnClickListener {
             vm.attendance()
             // todo

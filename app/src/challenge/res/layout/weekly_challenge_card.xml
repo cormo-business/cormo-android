@@ -49,7 +49,7 @@
             android:layout_marginTop="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7일 연속으로 운동하기"
+            android:text="4일 연속으로 운동하기"
             android:textColor="#CCFFFFFF"
             android:textSize="16sp"
             />
@@ -65,14 +65,14 @@
                 android:id="@+id/monday"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_doughnut_clear"
+                android:background="@drawable/ic_doughnut_yes"
                 />
             <View
                 android:id="@+id/tuesday"
                 android:layout_marginStart="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_doughnut_clear"
+                android:background="@drawable/ic_doughnut_yes"
                 />
             <View
                 android:id="@+id/wednesday"
@@ -80,7 +80,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_doughnut_clear"
+                android:background="@drawable/ic_doughnut_yes"
                 />
             <View
                 android:id="@+id/thursday"

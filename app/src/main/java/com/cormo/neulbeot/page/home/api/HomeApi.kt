@@ -23,8 +23,10 @@ data class HomeInitResponse (
     val checkAttendance: Boolean,
     val continuousAttendance: Int,
     val weekAttendance: List<TodayAttendanceCheckDto>,
-    val todayRecordNum: Int
-)
+    val todayRecordNum: Int,
+    val weekRecords: List<TodayAttendanceCheckDto>,
+
+    )
 
 data class TodayAttendanceCheckDto(
     val dayOfWeek: String,

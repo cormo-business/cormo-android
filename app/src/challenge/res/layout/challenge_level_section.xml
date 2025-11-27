@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"/>
             <TextView
-                android:text="40 포인트 제공"
+                android:text="30 포인트 제공"
                 android:textSize="14sp"
                 android:textColor="@color/darkGreen"
                 android:layout_width="wrap_content"

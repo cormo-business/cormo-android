@@ -49,6 +49,9 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
     private val _todayRecordNum = MutableLiveData<Int>()
     val todayRecordNum = _todayRecordNum
 
+    private val _weekRecords = MutableLiveData<List<TodayAttendanceCheckDto>>()
+    val weekRecords = _weekRecords
+
     fun initHome() {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -66,6 +69,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
                         _weekAttendance.value = b.weekAttendance
                         _continuousAttendance.value = b.continuousAttendance
                         _todayRecordNum.value = b.todayRecordNum
+                        _weekRecords.value = b.weekRecords
                     }.onFailure { e ->
                         _errorToken.value = "초기화 실패: ${e.message ?: "unknown"}"
                         Log.d(TAG, "HomeModel - initHome()${e.message} called")

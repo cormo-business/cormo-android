@@ -161,10 +161,7 @@ class HomeFragment : Fragment() {
         // 로그인 화면 등 다른 메뉴 생기면 여기서도 findViewById 해서 추가
 
         btnLogout.setOnClickListener {
-            // TODO: 실제 로그아웃 로직
-            // 예시:
-            // TokenStorage.clear(requireContext())
-            // vm.clearUserState() 등
+            // 로그아웃 로직
             repository.logout()
             val intent = Intent(requireContext(), LoginMethodActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or

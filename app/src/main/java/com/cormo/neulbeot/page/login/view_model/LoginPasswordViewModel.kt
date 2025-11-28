@@ -56,7 +56,7 @@ class LoginPasswordViewModel(app: Application) : AndroidViewModel(app) {
 
                     }
                 } else {
-                    _error.postValue("로그인 실패: ${res.code()}")
+                    _error.postValue("비밀번호가 잘못되었습니다")
                 }
             } catch (e: Exception) {
                 _error.postValue("네트워크 오류: ${e.message}")

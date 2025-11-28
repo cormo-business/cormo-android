@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--제일 상단-->
+    <include
+        android:layout_marginTop="10dp"
+        android:id="@+id/topSection"
+        layout="@layout/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        />
+
+    <!--개인정보 관리-->
+    <include
+        layout="@layout/my_info_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="37dp"
+        android:background="#F3F8F8" />
+    <!--앱 정보-->
+    <include
+        android:layout_marginTop="32dp"
+        layout="@layout/app_info_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>

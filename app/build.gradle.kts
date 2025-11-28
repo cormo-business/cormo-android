@@ -17,7 +17,8 @@ android {
                 "src/login/res",
                 "src/signup/res",
                 "src/activity/res",
-                "src/new_home/res"
+                "src/new_home/res",
+                "src/profile/res"
             )
         }
     }

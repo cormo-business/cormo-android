@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cormo.neulbeot.data.model.Result
-import com.cormo.neulbeot.data.repository.MemberRepository
+import com.cormo.neulbeot.page.login.api.MemberRepository
 import kotlinx.coroutines.launch
 
 // 프리젠테이션 레이어 (ViewModel + Activity)

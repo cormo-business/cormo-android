@@ -1,4 +1,4 @@
-package com.cormo.neulbeot.data.repository
+package com.cormo.neulbeot.page.login.api
 
 import android.content.Context
 import com.cormo.neulbeot.api.member.MemberService
@@ -6,7 +6,7 @@ import com.cormo.neulbeot.data.model.Result
 
 class MemberRepository(private val context: Context) {
 
-    suspend fun isRegistered(username: String): Result<Boolean>{
+    suspend fun isRegistered(username: String): Result<Boolean> {
         return try {
             val res = MemberService.api(context).exists(username)
             if(res.isSuccessful){

@@ -9,15 +9,26 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
+import com.cormo.neulbeot.page.login.LoginMethodActivity
+import com.cormo.neulbeot.page.login.LoginPasswordActivity
+import com.cormo.neulbeot.page.login.LoginPhoneActivity
+import com.cormo.neulbeot.page.login.onlyDigits
+import com.cormo.neulbeot.page.login.view_model.CheckPhoneViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlin.getValue
 
 class Step05PhoneActivity : AppCompatActivity() {
 
     private lateinit var etPhone: EditText
     private lateinit var btnNext: Button
     private lateinit var btnBack: ImageButton
+
+    private val vm: CheckPhoneViewModel by viewModels()
 
     private var selfChanging = false  // 포맷팅 시 재귀 방지
 
@@ -49,12 +60,14 @@ class Step05PhoneActivity : AppCompatActivity() {
             }
         })
 
+
         // 키보드 완료(엔터) 눌렀을 때 검증
         etPhone.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (!isValidPhone(etPhone.text.toString())) {
                     showSnack("올바른 휴대폰 번호(010으로 시작, 11자리)를 입력해주세요.")
                 }
+
                 true
             } else false
         }
@@ -66,14 +79,47 @@ class Step05PhoneActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val digits = etPhone.text.toString().onlyDigits()
+            vm.checkRegistered(digits)
+
             // 숫자만 추출해 username으로 저장
             SignupFormStore.username = digitsOnly(entered)
 
             // 다음 단계로 이동 (인증 페이지)
-            startActivity(Intent(this, Step06PhoneVerifyActivity::class.java))
+//            startActivity(Intent(this, Step06PhoneVerifyActivity::class.java))
+        }
+
+        // 로그인 여부
+        vm.registered.observe(this) { registered ->
+            val digits = etPhone.text.toString().onlyDigits()
+            when (registered) {
+                false -> {
+                    startActivity(
+                        Intent(this, Step06PhoneVerifyActivity::class.java)
+                            .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
+                    )
+                }
+                true -> {
+                    showSignupPrompt {
+                        startActivity(Intent(this, LoginMethodActivity::class.java))
+                    }
+                }
+                null -> toast("서버 통신 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.")
+            }
         }
 
         updateNextEnabled()
+    }
+
+    private fun toast(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun showSignupPrompt(onConfirm: () -> Unit) {
+        AlertDialog.Builder(this)
+            .setMessage("이미 가입되어있습니다")
+            .setCancelable(false)
+            .setPositiveButton("로그인 하러가기") { d, _ -> d.dismiss(); onConfirm() }
+            .setNegativeButton("닫기") { d, _ -> d.dismiss() }
+            .show()
     }
 
     /** 숫자만 남기기 */

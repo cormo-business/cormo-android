@@ -124,7 +124,7 @@
                 android:id="@+id/cbPrivacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:buttonTint="#000000" />
+                app:buttonTint="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"

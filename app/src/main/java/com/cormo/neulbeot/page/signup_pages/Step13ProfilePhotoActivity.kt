@@ -76,6 +76,10 @@ class Step13ProfilePhotoActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener { finish() }
 
+        ivProfile.setImageResource(R.drawable.ic_account_circle_96)
+
+        imagePath = "android.resource://${applicationContext.packageName}/${R.drawable.ic_account_circle_96}"
+
         // Step12에서 저장된 닉네임(기본 '사용자' 금지 → 빈문자면 그냥 빈칸)
         tvNickname.text = SignupFormStore.nickName.orEmpty()
 
@@ -85,7 +89,7 @@ class Step13ProfilePhotoActivity : AppCompatActivity() {
 
         btnComplete.setOnClickListener {
             // ‘완료’ → 회원가입 API 호출 → 성공 시 ‘늘액션 시작하기’ 버튼 노출
-            if (!submitting && imagePath != null) {
+            if (!submitting) {
                 registerAndComplete()
             }
         }
@@ -106,7 +110,7 @@ class Step13ProfilePhotoActivity : AppCompatActivity() {
     }
 
     private fun updateCompleteEnabled() {
-        val canProceed = imagePath != null
+        val canProceed = true
         btnComplete.isEnabled = canProceed
         btnComplete.setBackgroundColor(if (canProceed) 0xFF00C8E5.toInt() else 0xFFB3E5FC.toInt())
     }
@@ -151,6 +155,6 @@ class Step13ProfilePhotoActivity : AppCompatActivity() {
     private fun showLoading(show: Boolean) {
         progress.visibility = if (show) View.VISIBLE else View.GONE
         findViewById<View>(R.id.content).alpha = if (show) 0.5f else 1f
-        btnComplete.isEnabled = !show && imagePath != null
+        btnComplete.isEnabled = !show
     }
 }

@@ -15,6 +15,8 @@ import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.home.tabs.*
 import com.cormo.neulbeot.core.widget.HomeBottomBarView
 import com.cormo.neulbeot.page.exercise.ExActivity
+import com.cormo.neulbeot.page.exercise.activity.jjuka_State_version.JJukaActivity
+import com.cormo.neulbeot.page.exercise.activity.squart_version.SquartActivity
 import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,24 +42,32 @@ class HomeActivity : AppCompatActivity() {
                 0 -> HomeFragment()
                 1 -> ChallengeFragment()
                 2 -> ReportFragment()
-                3 -> CommunityFragment()
+                3 -> Stretching()
                 else -> ProfileFragment()
             }
         }
         // ▼ 탭 클릭 → 페이지 전환
         bottomBar.onTabSelected = { index ->
-            when (index) {
-                0 -> pager.setCurrentItem(0, false) // 홈
-                1 -> pager.setCurrentItem(1, false) // 챌린지
-                3 -> pager.setCurrentItem(3, false) // 마켓
-                4 -> pager.setCurrentItem(4, false) // 프로필
+            if (index == 3) {
+                // 3번 탭 누르면 JJukaActivity로 이동
+                startActivity(Intent(this@HomeActivity, JJukaActivity::class.java))
+                // 여기서는 아래 코드 실행 안 하고 끝내고 싶으니까
+                // 그냥 else로 감싸주면 됨 (return 안 써도 됨)
+            } else {
+                when (index) {
+                    0 -> pager.setCurrentItem(0, false) // 홈
+                    1 -> pager.setCurrentItem(1, false) // 챌린지
+                    4 -> pager.setCurrentItem(4, false) // 프로필
+                }
+
+                // 3번이 아닐 때만 탭 인덱스 갱신
+                bottomBar.currentIndex = index
             }
-            bottomBar.currentIndex = index
         }
 
         // ▼ 중앙 버튼 → 원하는 화면으로 이동
         findViewById<View?>(R.id.bottomCenterButtom)?.setOnClickListener{
-            startActivity(Intent(this@HomeActivity, ExActivity::class.java))
+            startActivity(Intent(this@HomeActivity, SquartActivity::class.java))
         }
 
         // 초기 탭

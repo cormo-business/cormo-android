@@ -3,7 +3,6 @@ package com.cormo.neulbeot.core.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -28,7 +27,7 @@ class HomeBottomBarView @JvmOverloads constructor(
     // 컨테이너
     private val itemHome by lazy { findViewById<ViewGroup>(R.id.item_home) }
     private val itemChallenge by lazy { findViewById<ViewGroup>(R.id.item_challenge) }
-    private val itemMarket by lazy { findViewById<ViewGroup>(R.id.item_market) }
+    private val itemStretching by lazy { findViewById<ViewGroup>(R.id.item_stretching) }
     private val itemProfile by lazy { findViewById<ViewGroup>(R.id.item_profile) }
 
     // 아이콘/라벨
@@ -38,8 +37,8 @@ class HomeBottomBarView @JvmOverloads constructor(
     private val chalIcon by lazy { itemChallenge.findViewById<ImageView>(R.id.icon) }
     private val chalLabel by lazy { itemChallenge.findViewById<TextView>(R.id.label) }
 
-    private val marketIcon by lazy { itemMarket.findViewById<ImageView>(R.id.icon) }
-    private val marketLabel by lazy { itemMarket.findViewById<TextView>(R.id.label) }
+    private val marketIcon by lazy { itemStretching.findViewById<ImageView>(R.id.icon) }
+    private val marketLabel by lazy { itemStretching.findViewById<TextView>(R.id.label) }
 
     private val profileIcon by lazy { itemProfile.findViewById<ImageView>(R.id.icon) }
     private val profileLabel by lazy { itemProfile.findViewById<TextView>(R.id.label) }
@@ -61,19 +60,19 @@ class HomeBottomBarView @JvmOverloads constructor(
         // 라벨 (플러터 명칭과 현재 메뉴 명칭 중 택1 — 여기선 메뉴에 맞춤)
         homeLabel.text = "홈"
         chalLabel.text = "게임/챌린지"
-        marketLabel.text = "마켓"
+        marketLabel.text = "스트레칭"
         profileLabel.text = "마이페이지"
 
         // 아이콘 연결 (프로젝트의 실제 아이콘으로 교체 가능)
         homeIcon.setImageResource(R.drawable.ic_home_24)
         chalIcon.setImageResource(R.drawable.ic_flag_24)
-        marketIcon.setImageResource(R.drawable.ic_forum_24)      // 기존 메뉴에 맞춤
+        marketIcon.setImageResource(R.drawable.ic_stretching)
         profileIcon.setImageResource(R.drawable.ic_person_24)
 
         // 클릭 → 인덱스 전달
         itemHome.setOnClickListener { onTabSelected?.invoke(0) }
         itemChallenge.setOnClickListener { onTabSelected?.invoke(1) }
-        itemMarket.setOnClickListener { onTabSelected?.invoke(3) }
+        itemStretching.setOnClickListener { onTabSelected?.invoke(3) }
         itemProfile.setOnClickListener { onTabSelected?.invoke(4) }
 
 //        centerButton.setOnClickListener { onStart?.invoke() }

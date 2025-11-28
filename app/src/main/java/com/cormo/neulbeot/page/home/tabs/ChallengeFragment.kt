@@ -94,11 +94,11 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
 
         btnGameStart1.setOnClickListener {
 //            startActivity(Intent(context, CameraActivity1st::class.java))
-            startActivity(Intent(context, JJukaActivity::class.java))
+            startActivity(Intent(context, ExActivity::class.java))
         }
 
         btnGameStart2.setOnClickListener {
-            startActivity(Intent(context, SquartActivity::class.java))
+            startActivity(Intent(context, ExActivity::class.java))
         }
 
         // 주간 챌린지 카드 열기

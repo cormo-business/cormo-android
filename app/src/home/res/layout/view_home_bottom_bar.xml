@@ -60,7 +60,7 @@
             android:baselineAligned="false">
 
             <include
-                android:id="@+id/item_market"
+                android:id="@+id/item_stretching"
                 layout="@layout/view_nav_item"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

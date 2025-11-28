@@ -8,10 +8,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.vm.ExerciseViewModel
+import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlin.getValue
 
 class ExEndActivity: AppCompatActivity(){
     private val vm: ExerciseViewModel by viewModels()
+    private val HomeVm: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +39,12 @@ class ExEndActivity: AppCompatActivity(){
         Log.d("로그","운동 완료 ${stringExtra}")
         Toast.makeText(this, "${stringExtra} 운동 완료", Toast.LENGTH_SHORT).show()
         vm.saveRecord(stringExtra.toString())
+        HomeVm.initHome()
 
         }
 
 //        vm.memberId.observe(this){ memberId ->
 //            Toast.makeText(this, "기록 저장 성공!!\n당신의 ID는 ${memberId}입니다.", Toast.LENGTH_SHORT).show()
 //        }
-
 
 }

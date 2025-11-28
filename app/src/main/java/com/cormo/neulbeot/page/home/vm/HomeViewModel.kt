@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeModel(app: Application) : AndroidViewModel(app) {
+class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
     val TAG: String = "로그"
     private val repo = HomeRepository(app)
@@ -46,6 +46,12 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
     private val _continuousAttendance = MutableLiveData<Int>()
     val continuousAttendance = _continuousAttendance
 
+    private val _todayRecordNum = MutableLiveData<Int>()
+    val todayRecordNum = _todayRecordNum
+
+    private val _weekRecords = MutableLiveData<List<TodayAttendanceCheckDto>>()
+    val weekRecords = _weekRecords
+
     fun initHome() {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -62,6 +68,8 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
                         _levelProgress.value = b.levelProgress
                         _weekAttendance.value = b.weekAttendance
                         _continuousAttendance.value = b.continuousAttendance
+                        _todayRecordNum.value = b.todayRecordNum
+                        _weekRecords.value = b.weekRecords
                     }.onFailure { e ->
                         _errorToken.value = "초기화 실패: ${e.message ?: "unknown"}"
                         Log.d(TAG, "HomeModel - initHome()${e.message} called")
@@ -90,6 +98,8 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
                         // 성공 모달 띄우기
                         // 로컬 스토리지 저장하기
                         Toast.makeText(getApplication(), "출석 성공", Toast.LENGTH_SHORT).show()
+                        initHome()
+
                     }.onFailure {
                         // 이미 출석했다고 띄우기
                         Toast.makeText(getApplication(), "이미 출석했습니다ㅠㅠ", Toast.LENGTH_SHORT).show()
@@ -97,6 +107,6 @@ class HomeModel(app: Application) : AndroidViewModel(app) {
                 }
             }
         }
-        initHome()
+
     }
 }

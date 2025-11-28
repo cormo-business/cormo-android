@@ -10,12 +10,12 @@ import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.ExActivity
 import com.cormo.neulbeot.page.exercise.activity.jjuka_State_version.JJukaActivity
 import com.cormo.neulbeot.page.exercise.activity.squart_version.SquartActivity
-import com.cormo.neulbeot.page.home.vm.HomeModel
+import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlin.getValue
 
 class ChallengeFragment : Fragment(R.layout.challenge_page) {
 
-    private val vm: HomeModel by activityViewModels()
+    private val vm: HomeViewModel by activityViewModels()
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
@@ -28,17 +28,67 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
         val weeklyChallengeCard = v.findViewById<View>(R.id.WeeklyChallengeCard)
         val btnClose = v.findViewById<ImageView>(R.id.btn_close)
         val btnMore = v.findViewById<ImageView>(R.id.btn_plus)
-        val profress = v.findViewById<ProgressBar>(R.id.progressToday)
+        val progressEXP = v.findViewById<ProgressBar>(R.id.progressToday)
         val energyCoin = v.findViewById<TextView>(R.id.energy_coin)
         val myLevel = v.findViewById<TextView>(R.id.my_level)
+        val progressExerciseNum = v.findViewById<ProgressBar>(R.id.progress_today_exercise_num)
+        val tvRate = v.findViewById<TextView>(R.id.tvRate)
+        val tvDone = v.findViewById<TextView>(R.id.tvDone)
+
+        val monday = v.findViewById<View>(R.id.monday)
+        val tuesday = v.findViewById<View>(R.id.tuesday)
+        val wednesday = v.findViewById<View>(R.id.wednesday)
+        val thursday = v.findViewById<View>(R.id.thursday)
+        val friday = v.findViewById<View>(R.id.friday)
+        val saturday = v.findViewById<View>(R.id.saturday)
+        val sunday = v.findViewById<View>(R.id.sunday)
+        val dayViews = listOf(
+            monday,
+            tuesday,
+            wednesday,
+            thursday,
+            friday,
+            saturday,
+            sunday
+        )
+        // 7일 연속으로 운동....todo
+        vm.weekRecords.observe(viewLifecycleOwner) { list ->
+
+            for (i in list.indices) {
+                val item = list[i]
+                val textView = dayViews[i]
+
+                if(item.check){
+                    textView.setBackgroundResource(R.drawable.ic_doughnut_yes)
+                }else{
+                    textView.setBackgroundResource(R.drawable.ic_doughnut_no)
+
+                }
+
+            }
+        }
 
         vm.levelProgress.observe(viewLifecycleOwner){
             val level = vm.level.value ?: 0
             val p = vm.levelProgress.value ?: 0
             var total = 100+50*(level-1)
             myLevel.text = "LV.${level}"
-            profress.progress = (total - p) * 100 / total
+            progressEXP.progress = (total - p) * 100 / total
             energyCoin.text = "${total-p}/${total}"
+
+        }
+
+        vm.todayRecordNum.observe(viewLifecycleOwner){ num ->
+            var rate = 0
+            if(num >= 4){
+                rate = 100
+                tvDone.text = "오늘의 미션 완료"
+            }else{
+                rate = num * 25
+                tvDone.text = "${num}/4 완료"
+            }
+            progressExerciseNum.progress = rate
+            tvRate.text = "진행률 ${rate}%"
 
         }
 

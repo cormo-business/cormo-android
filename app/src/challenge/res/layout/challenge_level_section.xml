@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"/>
             <TextView
-                android:text="40 포인트 제공"
+                android:text="30 포인트 제공"
                 android:textSize="14sp"
                 android:textColor="@color/darkGreen"
                 android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             />
 
         <ProgressBar
-            android:id="@+id/progressToday"
+            android:id="@+id/progress_today_exercise_num"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="11dp"

@@ -16,9 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.cormo.neulbeot.page.login.LoginPasswordActivity
-import com.cormo.neulbeot.page.login.LoginPhoneActivity
 import com.cormo.neulbeot.page.login.onlyDigits
 import com.cormo.neulbeot.page.login.view_model.CheckPhoneViewModel
+import com.cormo.neulbeot.page.signup_pages.api.SignupService
 import com.google.android.material.snackbar.Snackbar
 import kotlin.getValue
 
@@ -94,10 +94,27 @@ class Step05PhoneActivity : AppCompatActivity() {
             val digits = etPhone.text.toString().onlyDigits()
             when (registered) {
                 false -> {
+
                     startActivity(
                         Intent(this, Step06PhoneVerifyActivity::class.java)
                             .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
                     )
+//                    val username = SignupFormStore.username.orEmpty()
+
+//                    SignupService.sendSms(this,username){
+//                        ok, error ->
+//                        if(ok){
+//                            Toast.makeText(this, "문자가 전송되었습니다", Toast.LENGTH_SHORT).show()
+//                            startActivity(
+//                                Intent(this, Step06PhoneVerifyActivity::class.java)
+//                                    .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
+//                            )
+//                            finish()
+//                        }else{
+//                            Toast.makeText(this, "휴대폰 인증 실패: $error", Toast.LENGTH_LONG).show()
+//
+//                        }
+//                    }
                 }
                 true -> {
                     showSignupPrompt {

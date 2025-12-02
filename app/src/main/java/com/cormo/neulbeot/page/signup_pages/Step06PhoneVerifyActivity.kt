@@ -10,6 +10,8 @@ import android.view.KeyEvent
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.cormo.neulbeot.R
+import com.cormo.neulbeot.page.login.LoginPasswordActivity.Companion.EXTRA_USERNAME
+import com.cormo.neulbeot.page.signup_pages.api.SignupService
 
 class Step06PhoneVerifyActivity : AppCompatActivity() {
 
@@ -38,13 +40,23 @@ class Step06PhoneVerifyActivity : AppCompatActivity() {
             findViewById(R.id.etCode3)
         )
 
+        val phoneNumber: String = intent.getStringExtra(EXTRA_USERNAME)?.trim().orEmpty()
+
+
         btnBack.setOnClickListener { finish() }
 
         // 각 칸: 숫자 1글자, 자동 이동/역이동
         boxes.forEachIndexed { index, et ->
             et.filters = arrayOf(InputFilter.LengthFilter(1))
             et.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     val text = s?.toString().orEmpty().filter { it.isDigit() }
@@ -72,8 +84,21 @@ class Step06PhoneVerifyActivity : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
+
             // 여기서 실제 서버 검증 호출하면 됨
             startActivity(Intent(this, Step07PasswordActivity::class.java))
+
+//            val code = boxes.joinToString("") { it.text.toString() }
+//            SignupService.checkedSms(this, code, phoneNumber) { ok, msg ->
+//                if (ok) {
+//
+//                    // 여기서 실제 서버 검증 호출하면 됨
+//                    startActivity(Intent(this, Step07PasswordActivity::class.java))
+//                } else {
+//                    Toast.makeText(this, "휴대폰 인증 실패: $msg", Toast.LENGTH_LONG).show()
+//                }
+//            }
+
         }
 
         tvResend.setOnClickListener {
@@ -95,6 +120,7 @@ class Step06PhoneVerifyActivity : AppCompatActivity() {
                 val s = (millisUntilFinished / 1000L) % 60
                 tvTimer.text = String.format("%d:%02d", m, s)
             }
+
             override fun onFinish() {
                 tvTimer.text = "0:00"
                 // 타이머 종료 시 버튼을 비활성화하거나 안내를 띄우고 싶다면 여기서 처리

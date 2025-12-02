@@ -2,6 +2,7 @@ package com.cormo.neulbeot.page.signup_pages.api
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.core.ApiClient
 import com.squareup.moshi.Moshi
@@ -16,10 +17,6 @@ import java.lang.reflect.Type
 
 object SignupService {
 
-    // ⚠️ 지양: 전역 고정 service
-    // private val service: SignupService = ApiClient.retrofit.create(SignupService::class.java)
-
-    // ✅ 항상 ApiClient.retrofit(context)로 만든 동일 설정의 Retrofit 사용
     private fun service(context: Context): SignupApi =
         ApiClient.retrofit(context).create(SignupApi::class.java)
 
@@ -33,7 +30,7 @@ object SignupService {
     )
 
     private val moshi: Moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())   // ✅ moshi-kotlin 어댑터
+        .add(KotlinJsonAdapterFactory())
         .build()
 
     /** healthJson 예: {"diseases":["DIABETES"],"pains":["NECK"]} or 한글 라벨 */
@@ -74,6 +71,76 @@ object SignupService {
     }
 
     /**
+     * 휴대폰 인증 보내기
+     */
+    fun sendSms(
+        context: Context,
+        phoneNumber: String,
+        callback: (ok: Boolean, codeOrMsg: String) -> Unit
+
+    ){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val res = service(context).sendSms(SmsRequest(phoneNumber = phoneNumber))
+
+                withContext(Dispatchers.Main) {
+                    if (res.isSuccessful) {
+                        callback(true, "성공")
+                    } else {
+                        callback(false, "실패")
+                    }
+                }
+
+            }catch (t: Throwable){
+                callback(false, t.message ?: "network_error")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "전화번호 인증 중 오류 나옴"+"${t.message ?: "network_error"}", Toast.LENGTH_SHORT)
+                }
+            }
+        }
+    }
+
+    /**
+     * 휴대폰 인증
+     */
+    fun checkedSms(
+        context: Context,
+        code: String,
+        phoneNumber: String,
+        callback: (ok: Boolean, codeOrMsg: String) -> Unit
+
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val res = service(context).checkedSms(
+                    SmsCheckRequest(
+                        phoneNumber = phoneNumber,
+                        code = code
+                    )
+                )
+                withContext(Dispatchers.Main) {
+                    if (res.isSuccessful) {
+                        callback(true, "성공")
+                    } else {
+                        callback(false, "실패")
+                    }
+                }
+
+            } catch (t: Throwable) {
+                callback(false, t.message ?: "network_error")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        "전화번호 인증 중 오류 나옴" + "${t.message ?: "network_error"}",
+                        Toast.LENGTH_SHORT
+                    )
+                }
+            }
+        }
+    }
+
+    /**
      * 회원가입 호출 (콜백은 Main 스레드 보장)
      */
     fun register(
@@ -106,11 +173,11 @@ object SignupService {
                 val res: Response<Unit> = service(context).register(body)
                 withContext(Dispatchers.Main) {
                     if (res.isSuccessful) {
-                        // ✅ 헤더에서 토큰 꺼내기
+                        // 헤더에서 토큰 꺼내기
                         val access = res.headers()["accessToken"]
                         val refresh = res.headers()["refreshToken"]
 
-                        // ✅ 저장
+                        // 저장
                         if (!access.isNullOrBlank() && !refresh.isNullOrBlank()) {
                             TokenStorage(context).saveTokens(access = access, refresh = refresh)
                         }

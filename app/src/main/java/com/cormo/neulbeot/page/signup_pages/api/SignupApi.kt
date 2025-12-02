@@ -12,5 +12,5 @@ interface SignupApi {
     suspend fun sendSms(@Body body: SmsRequest): Response<Unit>
 
     @POST("/api/sms/check")
-    suspend fun checkedSms(@Body body: SmsCheckRequest): Response<Unit>
+    suspend fun checkedSms(@Body body: SmsCheckRequest): Response<Boolean>
 }

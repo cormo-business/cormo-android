@@ -120,8 +120,10 @@ object SignupService {
                     )
                 )
                 withContext(Dispatchers.Main) {
-                    if (res.isSuccessful) {
+                    val body = res.body()
+                    if (res.isSuccessful && body == true) {
                         callback(true, "성공")
+
                     } else {
                         callback(false, "실패")
                     }

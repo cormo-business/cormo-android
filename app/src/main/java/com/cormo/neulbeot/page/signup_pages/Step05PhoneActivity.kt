@@ -95,26 +95,26 @@ class Step05PhoneActivity : AppCompatActivity() {
             when (registered) {
                 false -> {
 
-                    startActivity(
-                        Intent(this, Step06PhoneVerifyActivity::class.java)
-                            .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
-                    )
-//                    val username = SignupFormStore.username.orEmpty()
+//                    startActivity(
+//                        Intent(this, Step06PhoneVerifyActivity::class.java)
+//                            .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
+//                    )
+                    val username = SignupFormStore.username.orEmpty()
 
-//                    SignupService.sendSms(this,username){
-//                        ok, error ->
-//                        if(ok){
-//                            Toast.makeText(this, "문자가 전송되었습니다", Toast.LENGTH_SHORT).show()
-//                            startActivity(
-//                                Intent(this, Step06PhoneVerifyActivity::class.java)
-//                                    .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
-//                            )
-//                            finish()
-//                        }else{
-//                            Toast.makeText(this, "휴대폰 인증 실패: $error", Toast.LENGTH_LONG).show()
-//
-//                        }
-//                    }
+                    SignupService.sendSms(this,username){
+                        ok, error ->
+                        if(ok){
+                            Toast.makeText(this, "문자가 전송되었습니다", Toast.LENGTH_SHORT).show()
+                            startActivity(
+                                Intent(this, Step06PhoneVerifyActivity::class.java)
+                                    .putExtra(LoginPasswordActivity.EXTRA_USERNAME, digits)
+                            )
+                            finish()
+                        }else{
+                            Toast.makeText(this, "휴대폰 인증 실패: $error", Toast.LENGTH_LONG).show()
+
+                        }
+                    }
                 }
                 true -> {
                     showSignupPrompt {

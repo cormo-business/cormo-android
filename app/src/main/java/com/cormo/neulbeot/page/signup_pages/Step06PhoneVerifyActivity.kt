@@ -85,19 +85,19 @@ class Step06PhoneVerifyActivity : AppCompatActivity() {
 
         btnNext.setOnClickListener {
 
-            // 여기서 실제 서버 검증 호출하면 됨
-            startActivity(Intent(this, Step07PasswordActivity::class.java))
+//            // 여기서 실제 서버 검증 호출하면 됨
+//            startActivity(Intent(this, Step07PasswordActivity::class.java))
 
-//            val code = boxes.joinToString("") { it.text.toString() }
-//            SignupService.checkedSms(this, code, phoneNumber) { ok, msg ->
-//                if (ok) {
-//
-//                    // 여기서 실제 서버 검증 호출하면 됨
-//                    startActivity(Intent(this, Step07PasswordActivity::class.java))
-//                } else {
-//                    Toast.makeText(this, "휴대폰 인증 실패: $msg", Toast.LENGTH_LONG).show()
-//                }
-//            }
+            val code = boxes.joinToString("") { it.text.toString() }
+            SignupService.checkedSms(this, code, phoneNumber) { ok, msg ->
+                if (ok) {
+
+                    // 여기서 실제 서버 검증 호출하면 됨
+                    startActivity(Intent(this, Step07PasswordActivity::class.java))
+                } else {
+                    Toast.makeText(this, "휴대폰 인증 실패: $msg", Toast.LENGTH_LONG).show()
+                }
+            }
 
         }
 

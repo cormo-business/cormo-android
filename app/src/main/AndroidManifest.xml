@@ -67,6 +67,8 @@
         <activity android:name=".page.exercise.activity.jjuka_State_version.JJukaActivity"/>
         <activity android:name=".page.exercise.ExEndActivity"/>
         <activity android:name=".page.exercise.activity.pickme.PickmeMainActivity"/>
+        <activity android:name=".page.exercise.activity.brick.BrickMainActivity"/>
+
 
         <!-- Firebase Messaging Service 등록 -->
         <service

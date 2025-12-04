@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.cormo.neulbeot.auth.TokenStorage
 import com.cormo.neulbeot.page.login.LoginMethodActivity
 import com.cormo.neulbeot.fcm.sendFcmTokenAfterLogin
+import com.cormo.neulbeot.page.exercise.activity.brick.BrickMainActivity
 import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeMainActivity
 import com.cormo.neulbeot.page.home.HomeActivity
 import kotlinx.coroutines.delay
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.runBtn).setOnClickListener {
-            startActivity(Intent(this, PickmeMainActivity::class.java));
+            startActivity(Intent(this, BrickMainActivity::class.java));
         }
 
         // 눌렀을 때 색 진하게 변경

@@ -71,6 +71,10 @@ class BrickCameraFragment : Fragment(), BrickHandLandmarkerHelper.LandmarkerList
         val bmp = BitmapFactory.decodeResource(resources, R.drawable.target)
         binding.overlay.setTargetImage(bmp)
 
+        // 로딩 오버레이 보여주기 (초기화 시작)
+        binding.loadingOverlay.visibility = View.VISIBLE
+        binding.loadingText.text = "게임을 준비 중입니다..."
+
         // Landmarker 초기화 (백그라운드에서 초기화, 준비 안 됐으면 프레임은 스킵)
         backgroundExecutor.execute {
             try {
@@ -84,18 +88,17 @@ class BrickCameraFragment : Fragment(), BrickHandLandmarkerHelper.LandmarkerList
                     currentDelegate = viewModel.currentDelegate,
                     handLandmarkerHelperListener = this
                 )
+
+                requireActivity().runOnUiThread {
+                    setUpCamera() // 카메라 준비
+                    // 로딩 UI 제거
+                    binding.loadingOverlay.visibility = View.GONE
+                    setUpGame() // 게임 시작 설정
+                }
             } catch (e: Exception) {
                 Log.e(TAG, "Error initializing HandLandmarkerHelper", e)
             }
         }
-
-        // 카메라 준비
-        binding.viewFinder.post {
-            setUpCamera()
-        }
-
-        // 게임 시작 설정
-        setUpGame()
     }
 
     /** 게임 로직 / 타이머 설정 */

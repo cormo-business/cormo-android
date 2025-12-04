@@ -151,8 +151,15 @@ class BrickOverlayView(context: Context?, attrs: AttributeSet?) : View(context, 
             val cx = offsetX + targetXImg * scaleFactor
             val cy = offsetY + targetYImg * scaleFactor
             val rPx = targetRadiusImg * scaleFactor
-            canvas.drawCircle(cx, cy, rPx, targetPaint)
-            canvas.drawText(targetHP.toString(), cx, cy + (hpTextPaint.textSize / 3), hpTextPaint)
+
+            targetBitmap?.let { bmp ->
+                val size = (rPx * 2).toInt()
+                val scaled = Bitmap.createScaledBitmap(bmp, size, size, true)
+                canvas.drawBitmap(scaled, cx - rPx, cy - rPx, null)
+            }
+
+//            canvas.drawCircle(cx, cy, rPx, targetPaint)
+//            canvas.drawText(targetHP.toString(), cx, cy + (hpTextPaint.textSize / 3), hpTextPaint)
         }
 
         val now = System.currentTimeMillis()

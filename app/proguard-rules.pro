@@ -19,15 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-# Moshi 반영(리플렉션/어댑터용 메타데이터 보존)
--keep class kotlin.Metadata { *; }
--keep class com.squareup.moshi.** { *; }
--keep class com.squareup.okio.** { *; }
-
-# Retrofit 인터페이스(리플렉션으로 찾음)
--keep interface com.squareup.retrofit2.* { *; }
--dontwarn javax.annotation.**
-
-# OkHttp/Okio 경고 무시(필요시)
--dontwarn okio.**

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("de.undercouch.download") version "5.6.0"
 }
 
 android {
@@ -18,7 +19,8 @@ android {
                 "src/signup/res",
                 "src/activity/res",
                 "src/new_home/res",
-                "src/profile/res"
+                "src/profile/res",
+                "src/pickme/res"
             )
         }
     }
@@ -53,12 +55,16 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
+extra["ASSET_DIR"] = "$projectDir/src/main/assets"
+apply(from = "download_tasks.gradle")
+
 dependencies {
-//    implementation("androidx.core:core-ktx:1.13.1")
-//    implementation("androidx.activity:activity-ktx:1.9.3")
-//    implementation("androidx.appcompat:appcompat:1.7.0")
 
     // ML Kit - 기본 포즈 모델
     implementation("com.google.mlkit:pose-detection:18.0.0-beta5")
@@ -78,15 +84,19 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.activity:activity-ktx:1.9.2")
+
     // Retrofit + Moshi + OkHttp (네트워크)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
     // Moshi (필요시 코드젠 켜도 됨)
     implementation("com.squareup.moshi:moshi:1.15.1")
+
     // Moshi Kotlin 어댑터 (여기에 KotlinJsonAdapterFactory 들어있음)
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
+
     // kapt "com.squareup.moshi:moshi-kotlin-codegen:1.15.1"
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
@@ -101,6 +111,17 @@ dependencies {
     // FCM설정
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // MediaPipe Library
+    implementation("com.google.mediapipe:tasks-vision:0.10.29")
+
+    // Navigation library
+    val nav_version = "2.5.3"
+    implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation ("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // WindowManager
+    implementation("androidx.window:window:1.1.0-alpha03")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

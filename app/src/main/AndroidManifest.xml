@@ -66,6 +66,7 @@
         <activity android:name=".page.exercise.activity.squart_version.SquartActivity"/>
         <activity android:name=".page.exercise.activity.jjuka_State_version.JJukaActivity"/>
         <activity android:name=".page.exercise.ExEndActivity"/>
+        <activity android:name=".page.exercise.activity.pickme.PickmeMainActivity"/>
 
         <!-- Firebase Messaging Service 등록 -->
         <service

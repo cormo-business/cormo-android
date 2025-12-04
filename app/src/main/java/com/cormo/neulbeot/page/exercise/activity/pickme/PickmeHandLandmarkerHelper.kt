@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package com.cormo.neulbeot.page.exercise.activity.pickme
-
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
@@ -38,7 +37,7 @@ class PickmeHandLandmarkerHelper(
     var minHandPresenceConfidence: Float = DEFAULT_HAND_PRESENCE_CONFIDENCE,
     var maxNumHands: Int = DEFAULT_NUM_HANDS,
     var currentDelegate: Int = DELEGATE_CPU,
-    var runningMode: RunningMode = RunningMode.IMAGE,
+    var runningMode: RunningMode = RunningMode.LIVE_STREAM, //Live_STREAM, IMAGE, VIDEO
     val context: Context,
     // this listener is only used when running in RunningMode.LIVE_STREAM
     val handLandmarkerHelperListener: LandmarkerListener? = null
@@ -262,12 +261,12 @@ class PickmeHandLandmarkerHelper(
                         ?.let { detectionResult ->
                             resultList.add(detectionResult)
                         } ?: run{
-                            didErrorOccurred = true
-                            handLandmarkerHelperListener?.onError(
-                                "ResultBundle could not be returned" +
-                                        " in detectVideoFile"
-                            )
-                        }
+                        didErrorOccurred = true
+                        handLandmarkerHelperListener?.onError(
+                            "ResultBundle could not be returned" +
+                                    " in detectVideoFile"
+                        )
+                    }
                 }
                 ?: run {
                     didErrorOccurred = true
@@ -354,8 +353,8 @@ class PickmeHandLandmarkerHelper(
     }
 
     companion object {
-        const val TAG = "로그"
-        private const val MP_HAND_LANDMARKER_TASK = "./model/hand_landmarker.task"
+        const val TAG = "HandLandmarkerHelper"
+        private const val MP_HAND_LANDMARKER_TASK = "hand_landmarker.task"
 
         const val DELEGATE_CPU = 0
         const val DELEGATE_GPU = 1

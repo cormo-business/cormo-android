@@ -20,7 +20,8 @@ android {
                 "src/activity/res",
                 "src/new_home/res",
                 "src/profile/res",
-                "src/pickme/res"
+                "src/pickme/res",
+                "src/brick/res"
             )
         }
     }

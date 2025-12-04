@@ -16,6 +16,7 @@
 package com.cormo.neulbeot.page.exercise.activity.pickme
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -33,7 +34,6 @@ import kotlin.random.Random
 
 class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    // ========== Hand landmarks ==========
     private var results: HandLandmarkerResult? = null
     private var linePaint = Paint()
     private var pointPaint = Paint()
@@ -42,23 +42,16 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
     private var imageWidth: Int = 1
     private var imageHeight: Int = 1
 
-    // fillCenter 보정용 offset
     private var offsetX = 0f
     private var offsetY = 0f
 
-    // ========== Index tip highlight ==========
     private val indexTipPaint = Paint().apply {
         color = Color.RED
         style = Paint.Style.FILL
         isAntiAlias = true
     }
 
-    // ========== GAME: target circle ==========
-    private val targetPaint = Paint().apply {
-        color = Color.GREEN
-        style = Paint.Style.FILL
-        isAntiAlias = true
-    }
+    private var targetBitmap: Bitmap? = null
 
     private var targetXImg: Float = -1f
     private var targetYImg: Float = -1f
@@ -72,6 +65,10 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
         initPaints()
     }
 
+    fun setTargetImage(bitmap: Bitmap) {
+        targetBitmap = bitmap
+    }
+
     fun clear() {
         results = null
         hasTarget = false
@@ -81,8 +78,7 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
     }
 
     private fun initPaints() {
-        linePaint.color =
-            ContextCompat.getColor(context!!, R.color.mp_color_primary)
+        linePaint.color = ContextCompat.getColor(context!!, R.color.mp_color_primary)
         linePaint.strokeWidth = LANDMARK_STROKE_WIDTH
         linePaint.style = Paint.Style.STROKE
 
@@ -90,8 +86,6 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
         pointPaint.strokeWidth = LANDMARK_STROKE_WIDTH
         pointPaint.style = Paint.Style.FILL
     }
-
-    // ========== GAME API (CameraFragment에서 사용중) ==========
 
     fun startGame() {
         gameRunning = true
@@ -109,18 +103,13 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
         onHitListener = listener
     }
 
-    // 타깃 생성 (mergin으로 나가지 않게함)
     private fun spawnTargetIfNeeded() {
         if (!gameRunning || hasTarget) return
         if (imageWidth <= 1 || imageHeight <= 1) return
-
+        // 여기서 minSide * 0.3f에서 실수 값을 키울수록 화면 이미지가 커짐
         val minSide = min(imageWidth, imageHeight).toFloat()
-
-        // 이미지 좌표계에서 반지름 설정
-        targetRadiusImg = minSide * 0.03f
-        // 안전 margin
+        targetRadiusImg = minSide * 0.05f
         val margin = targetRadiusImg * 3.0f
-
 
         val minX = imageWidth * 0.15f + margin
         val maxX = imageWidth * 0.85f - margin
@@ -129,11 +118,8 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
 
         targetXImg = Random.nextFloat() * (maxX - minX) + minX
         targetYImg = Random.nextFloat() * (maxY - minY) + minY
-
         hasTarget = true
     }
-
-    // ========== Drawing ==========
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
@@ -141,21 +127,24 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
 
         spawnTargetIfNeeded()
 
-
         if (gameRunning && hasTarget) {
             val cx = offsetX + targetXImg * scaleFactor
             val cy = offsetY + targetYImg * scaleFactor
             val rPx = targetRadiusImg * scaleFactor
-            canvas.drawCircle(cx, cy, rPx, targetPaint)
+
+            targetBitmap?.let { bmp ->
+                val size = (rPx * 2).toInt()
+                val scaled = Bitmap.createScaledBitmap(bmp, size, size, true)
+                canvas.drawBitmap(scaled, cx - rPx, cy - rPx, null)
+            }
         }
+
         for (landmarkList in handResult.landmarks()) {
 
             for (lm in landmarkList) {
                 val x = offsetX + lm.x() * imageWidth * scaleFactor
                 val y = offsetY + lm.y() * imageHeight * scaleFactor
-                canvas.drawPoint(x, y, pointPaint)
             }
-
 
             HandLandmarker.HAND_CONNECTIONS.forEach {
                 val start = landmarkList[it!!.start()]
@@ -165,18 +154,12 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
                 val startY = offsetY + start.y() * imageHeight * scaleFactor
                 val endX = offsetX + end.x() * imageWidth * scaleFactor
                 val endY = offsetY + end.y() * imageHeight * scaleFactor
-
-                canvas.drawLine(startX, startY, endX, endY, linePaint)
             }
 
-            // 검지 감시기
             if (landmarkList.size > 8) {
                 val tip = landmarkList[8]
                 val tipX = offsetX + tip.x() * imageWidth * scaleFactor
                 val tipY = offsetY + tip.y() * imageHeight * scaleFactor
-
-                // 빨간 점으로 표시
-                canvas.drawCircle(tipX, tipY, 20f, indexTipPaint)
 
                 if (gameRunning && hasTarget) {
                     val cx = offsetX + targetXImg * scaleFactor
@@ -196,26 +179,21 @@ class PickmeOverlayView(context: Context?, attrs: AttributeSet?) : View(context,
         }
     }
 
-    // ========== Mediapipe 결과 세팅 & fillCenter 보정 ==========
-
     fun setResults(
         handResults: HandLandmarkerResult,
         imgHeight: Int,
         imgWidth: Int,
-        runningMode: RunningMode = RunningMode.IMAGE   // 쓰진 않지만 시그니처 유지
+        runningMode: RunningMode = RunningMode.IMAGE
     ) {
         results = handResults
         imageHeight = imgHeight
         imageWidth = imgWidth
 
-        // PreviewView(app:scaleType="fillCenter") 기준:
-        // 1) scaleFactor: 더 큰 비율 사용해서 화면을 가득 채움
         scaleFactor = max(
             width.toFloat() / imageWidth,
             height.toFloat() / imageHeight
         )
 
-        // 2) 남는 부분을 양쪽/위아래에 균등 분배 → 중앙 정렬
         offsetX = (width - imageWidth * scaleFactor) / 2f
         offsetY = (height - imageHeight * scaleFactor) / 2f
 

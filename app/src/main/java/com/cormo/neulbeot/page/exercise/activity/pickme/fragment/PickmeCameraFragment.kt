@@ -16,6 +16,8 @@
 package com.cormo.neulbeot.page.exercise.activity.pickme.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -33,6 +35,8 @@ import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeHandLandmarkerHelper
 import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeMainViewModel
 import com.cormo.neulbeot.databinding.PickmeFragmentCameraBinding
+import com.cormo.neulbeot.page.exercise.ExEndActivity
+import com.cormo.neulbeot.R
 
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
@@ -58,10 +62,9 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
 
     private lateinit var backgroundExecutor: ExecutorService
 
-    // ===== 게임 상태 =====
     private var score: Int = 0
     private var gameTimer: CountDownTimer? = null
-    private var timeLeft: Int = 60
+    private var timeLeft: Int = 10
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,12 +81,13 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
 
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
-        // 카메라 준비
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.target)
+        binding.overlay.setTargetImage(bmp)
+
         binding.viewFinder.post {
             setUpCamera()
         }
 
-        // HandLandmarker 준비
         backgroundExecutor.execute {
             handLandmarkerHelper = PickmeHandLandmarkerHelper(
                 context = requireContext(),
@@ -97,13 +101,10 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
             )
         }
 
-        // 게임 시작 세팅
         setUpGame()
     }
 
     private fun setUpGame() {
-        score = 0
-        timeLeft = 60
 
         binding.overlay.setOnHitListener {
             score++
@@ -118,7 +119,15 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
             override fun onTick(millisUntilFinished: Long) {
                 timeLeft--
                 // 시간 UI 쓰고 싶으면 여기서 사용
-                // binding.timeText.text = "Time: $timeLeft"
+                binding.timeText.text = "Time: $timeLeft"
+
+                // 점수 UI
+                binding.gameScore.text = "Score: $score"
+
+                // 시간 종료
+                if(timeLeft == 0){
+                    onFinish()
+                }
             }
 
             override fun onFinish() {
@@ -128,6 +137,11 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
                     "Game Over! Score: $score",
                     Toast.LENGTH_SHORT
                 ).show()
+
+                parentFragmentManager.popBackStack()
+
+                startActivity(Intent(context, ExEndActivity::class.java)
+                    .putExtra("activity",score.toString() + "점"))
             }
         }.start()
     }
@@ -136,7 +150,6 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
         super.onDestroyView()
         gameTimer?.cancel()
         _binding = null
-
         backgroundExecutor.shutdown()
     }
 
@@ -150,9 +163,7 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
 
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases() {
-        val provider = cameraProvider
-            ?: throw IllegalStateException("Camera initialization failed.")
-
+        val provider = cameraProvider ?: return
         val cameraSelector =
             CameraSelector.Builder().requireLensFacing(cameraFacing).build()
 

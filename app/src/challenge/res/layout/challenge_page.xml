@@ -49,7 +49,7 @@
             android:textSize="50sp"
             android:textColor="@color/white"
             android:background="@drawable/bg_game_start"
-            android:text="게임1"/>
+            android:text="감자 찌르기"/>
 
         <TextView
             android:id="@+id/game_start2"
@@ -60,7 +60,7 @@
             android:textSize="50sp"
             android:textColor="@color/white"
             android:background="@drawable/bg_game_start"
-            android:text="게임2"/>
+            android:text="감자 부수기"/>
 
     </LinearLayout>
 

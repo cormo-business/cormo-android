@@ -71,13 +71,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        findViewById<Button>(R.id.runBtn).setOnClickListener {
-            startActivity(Intent(this, PickmeMainActivity::class.java));
-        }
-
-        findViewById<Button>(R.id.runBrickBtn).setOnClickListener {
-            startActivity(Intent(this, BrickMainActivity::class.java));
-        }
 
         // 눌렀을 때 색 진하게 변경
         startButton.setOnTouchListener { v, event ->

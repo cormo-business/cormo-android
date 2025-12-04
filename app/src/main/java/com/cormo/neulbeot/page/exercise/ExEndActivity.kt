@@ -34,7 +34,8 @@ class ExEndActivity: AppCompatActivity(){
         }
 
         val stringExtra = intent.getStringExtra("activity")
-        txtActivityName.text = stringExtra.toString()
+        val score = intent.getStringExtra("score")
+        txtActivityName.text = score.toString()
 
         Log.d("로그","운동 완료 ${stringExtra}")
         Toast.makeText(this, "${stringExtra} 운동 완료", Toast.LENGTH_SHORT).show()

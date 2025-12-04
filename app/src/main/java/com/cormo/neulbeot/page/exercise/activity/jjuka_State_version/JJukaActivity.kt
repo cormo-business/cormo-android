@@ -100,7 +100,10 @@ class JJukaActivity : ComponentActivity() {
 
                             if(stretchState.phase == StretchState.StretchPhase.FINISHED){
                                 startActivity(Intent(this, ExEndActivity::class.java)
-                                    .putExtra("activity","jjuka"))
+                                    .putExtra("activity","jjuka")
+                                    .putExtra("score","jjuka")
+                                )
+
                                 stretchState.phase = StretchState.StretchPhase.END
                                 finish()
                             }

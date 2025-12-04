@@ -35,34 +35,5 @@
         android:stateListAnimator="@null"
         android:layout_gravity="center" />
 
-    <!-- 이동하기 버튼 -->
-    <Button
-        android:id="@+id/runBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이동!"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-        android:paddingHorizontal="40dp"
-        android:paddingVertical="14dp"
-        android:backgroundTint="#00B8D4"
-        android:stateListAnimator="@null"
-        android:layout_gravity="center" />
-
-    <!-- 이동하기 버튼 -->
-    <Button
-        android:id="@+id/runBrickBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Brick!"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:fontFamily="sans-serif-medium"
-        android:paddingHorizontal="40dp"
-        android:paddingVertical="14dp"
-        android:backgroundTint="#00B8D4"
-        android:stateListAnimator="@null"
-        android:layout_gravity="center" />
 
 </LinearLayout>

@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.cormo.neulbeot.R
 import com.cormo.neulbeot.page.exercise.ExActivity
+import com.cormo.neulbeot.page.exercise.activity.brick.BrickMainActivity
 import com.cormo.neulbeot.page.exercise.activity.jjuka_State_version.JJukaActivity
+import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeMainActivity
 import com.cormo.neulbeot.page.exercise.activity.squart_version.SquartActivity
 import com.cormo.neulbeot.page.home.vm.HomeViewModel
 import kotlin.getValue
@@ -94,11 +96,11 @@ class ChallengeFragment : Fragment(R.layout.challenge_page) {
 
         btnGameStart1.setOnClickListener {
 //            startActivity(Intent(context, CameraActivity1st::class.java))
-            startActivity(Intent(context, ExActivity::class.java))
+            startActivity(Intent(context, PickmeMainActivity::class.java))
         }
 
         btnGameStart2.setOnClickListener {
-            startActivity(Intent(context, ExActivity::class.java))
+            startActivity(Intent(context, BrickMainActivity::class.java))
         }
 
         // 주간 챌린지 카드 열기

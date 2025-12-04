@@ -26,18 +26,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.*
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-
-import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeHandLandmarkerHelper
-import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeMainViewModel
+import com.cormo.neulbeot.R
 import com.cormo.neulbeot.databinding.PickmeFragmentCameraBinding
 import com.cormo.neulbeot.page.exercise.ExEndActivity
-import com.cormo.neulbeot.R
-
+import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeHandLandmarkerHelper
+import com.cormo.neulbeot.page.exercise.activity.pickme.PickmeMainViewModel
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -45,7 +47,7 @@ import java.util.concurrent.Executors
 class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerListener {
 
     companion object {
-        private const val TAG = "HandGameOverlay"
+        private const val TAG = "로그"
     }
 
     private var _binding: PickmeFragmentCameraBinding? = null
@@ -58,13 +60,12 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
     private var imageAnalyzer: ImageAnalysis? = null
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
-    private var cameraFacing = CameraSelector.LENS_FACING_FRONT
+    private var cameraFacing: Int = CameraSelector.LENS_FACING_FRONT
 
     private lateinit var backgroundExecutor: ExecutorService
 
     private var score: Int = 0
     private var gameTimer: CountDownTimer? = null
-    private var timeLeft: Int = 10
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,78 +82,104 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
 
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
+        // 타겟 이미지 세팅
         val bmp = BitmapFactory.decodeResource(resources, R.drawable.target)
         binding.overlay.setTargetImage(bmp)
 
+        // Landmarker 초기화 (백그라운드에서 초기화, 준비 안 됐으면 프레임은 스킵)
+        backgroundExecutor.execute {
+            try {
+                handLandmarkerHelper = PickmeHandLandmarkerHelper(
+                    context = requireContext(),
+                    runningMode = RunningMode.LIVE_STREAM,
+                    minHandDetectionConfidence = viewModel.currentMinHandDetectionConfidence,
+                    minHandTrackingConfidence = viewModel.currentMinHandTrackingConfidence,
+                    minHandPresenceConfidence = viewModel.currentMinHandPresenceConfidence,
+                    maxNumHands = viewModel.currentMaxHands,
+                    currentDelegate = viewModel.currentDelegate,
+                    handLandmarkerHelperListener = this
+                )
+            } catch (e: Exception) {
+                Log.e(TAG, "Error initializing HandLandmarkerHelper", e)
+            }
+        }
+
+        // 카메라 준비
         binding.viewFinder.post {
             setUpCamera()
         }
 
-        backgroundExecutor.execute {
-            handLandmarkerHelper = PickmeHandLandmarkerHelper(
-                context = requireContext(),
-                runningMode = RunningMode.LIVE_STREAM,
-                minHandDetectionConfidence = viewModel.currentMinHandDetectionConfidence,
-                minHandTrackingConfidence = viewModel.currentMinHandTrackingConfidence,
-                minHandPresenceConfidence = viewModel.currentMinHandPresenceConfidence,
-                maxNumHands = viewModel.currentMaxHands,
-                currentDelegate = viewModel.currentDelegate,
-                handLandmarkerHelperListener = this
-            )
-        }
-
+        // 게임 시작 설정
         setUpGame()
     }
 
+    /** 게임 로직 / 타이머 설정 */
     private fun setUpGame() {
+        var timeLeft = 60
+        score = 0
 
+        // 맞췄을 때 점수 증가
         binding.overlay.setOnHitListener {
             score++
         }
 
+        // 오버레이 게임 시작
         binding.overlay.post {
             binding.overlay.startGame()
         }
 
+        // 기존 타이머 있으면 취소
         gameTimer?.cancel()
-        gameTimer = object : CountDownTimer(60000, 1000) {
+
+        // 10초 타이머
+        gameTimer = object : CountDownTimer(60_000, 1_000) {
             override fun onTick(millisUntilFinished: Long) {
-                timeLeft--
-                // 시간 UI 쓰고 싶으면 여기서 사용
+                timeLeft = (millisUntilFinished / 1000).toInt()
                 binding.timeText.text = "Time: $timeLeft"
-
-                // 점수 UI
                 binding.gameScore.text = "Score: $score"
-
-                // 시간 종료
-                if(timeLeft == 0){
-                    onFinish()
-                }
             }
 
             override fun onFinish() {
-                binding.overlay.stopGame()
-                Toast.makeText(
-                    requireContext(),
-                    "Game Over! Score: $score",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                parentFragmentManager.popBackStack()
-
-                startActivity(Intent(context, ExEndActivity::class.java)
-                    .putExtra("activity",score.toString() + "점"))
+                endGame()
             }
         }.start()
+    }
+
+    /** 게임 종료 처리 (한 곳에서만 처리) */
+    private fun endGame() {
+        if (!isAdded || _binding == null) return
+
+        binding.overlay.stopGame()
+
+        Toast.makeText(
+            requireContext(),
+            "Game Over! Score: $score",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        val act = activity ?: return
+        val intent = Intent(act, ExEndActivity::class.java)
+            .putExtra("activity", "pickme")
+            .putExtra("score","${score}점")
+
+        act.startActivity(intent)
+        // 이전 액티비티도 종료하고 싶으면 주석 해제
+         act.finish()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         gameTimer?.cancel()
-        _binding = null
+        cameraProvider?.unbindAll()
         backgroundExecutor.shutdown()
+        preview = null
+        imageAnalyzer = null
+        camera = null
+        cameraProvider = null
+        _binding = null
     }
 
+    /** CameraX 세팅 */
     private fun setUpCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener({
@@ -164,8 +191,10 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
     @SuppressLint("UnsafeOptInUsageError")
     private fun bindCameraUseCases() {
         val provider = cameraProvider ?: return
-        val cameraSelector =
-            CameraSelector.Builder().requireLensFacing(cameraFacing).build()
+
+        val cameraSelector = CameraSelector.Builder()
+            .requireLensFacing(cameraFacing)
+            .build()
 
         preview = Preview.Builder()
             .setTargetResolution(Size(640, 480))
@@ -178,8 +207,8 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
             .build()
-            .also {
-                it.setAnalyzer(backgroundExecutor) { image ->
+            .also { analysis ->
+                analysis.setAnalyzer(backgroundExecutor) { image ->
                     detectHand(image)
                 }
             }
@@ -199,18 +228,34 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
         }
     }
 
+    /** 손 인식 처리 */
     private fun detectHand(imageProxy: ImageProxy) {
-        handLandmarkerHelper.detectLiveStream(
-            imageProxy = imageProxy,
-            isFrontCamera = cameraFacing == CameraSelector.LENS_FACING_FRONT
-        )
+        if (!::handLandmarkerHelper.isInitialized) {
+            // 아직 초기화 전이면 프레임만 버리고 return
+            imageProxy.close()
+            return
+        }
+
+        try {
+            handLandmarkerHelper.detectLiveStream(
+                imageProxy = imageProxy,
+                isFrontCamera = cameraFacing == CameraSelector.LENS_FACING_FRONT
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Error during hand detection", e)
+            imageProxy.close()
+        }
     }
 
+    /** MediaPipe 결과 콜백 */
     override fun onResults(resultBundle: PickmeHandLandmarkerHelper.ResultBundle) {
+        val safeBinding = _binding ?: return
+        if (!isAdded) return
+
         activity?.runOnUiThread {
             val result = resultBundle.results.first()
 
-            binding.overlay.setResults(
+            safeBinding.overlay.setResults(
                 result,
                 resultBundle.inputImageHeight,
                 resultBundle.inputImageWidth,
@@ -219,7 +264,10 @@ class PickmeCameraFragment : Fragment(), PickmeHandLandmarkerHelper.LandmarkerLi
         }
     }
 
+    /** MediaPipe 에러 콜백 */
     override fun onError(error: String, errorCode: Int) {
+        if (!isAdded || _binding == null) return
+
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }

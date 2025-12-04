@@ -95,7 +95,10 @@ class SquartActivity : ComponentActivity() {
 
                             if(squartCounter.count == 10){
                                 startActivity(Intent(this, ExEndActivity::class.java)
-                                    .putExtra("activity","squart"))
+                                    .putExtra("activity","squart")
+                                    .putExtra("score","squart")
+                                )
+
                                 finish()
                                 squartCounter.reset()
                             }

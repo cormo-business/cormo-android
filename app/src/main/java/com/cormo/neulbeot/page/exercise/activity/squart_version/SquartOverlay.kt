@@ -107,6 +107,6 @@ class SquartOverlay(context: Context, attrs: AttributeSet? = null) : View(contex
             }
 
             // 스쿼트 카운트
-            canvas.drawText("Squat: $squatCount", 50f, 120f, paintText)
+            canvas.drawText("Squat: $squatCount", 50f, 200f, paintText)
         }
     }
